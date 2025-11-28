@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>W.R.P.A V2.0 - WiFi Remote Power Alert System</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --text-color: #333;
+            --light-bg: #f8f9ff;
+            --card-bg: #ffffff;
+            --shadow: 0 5px 20px rgba(0,0,0,0.1);
+            --border-radius: 15px;
+            --container-padding: 5vw;
+            --section-spacing: clamp(3rem, 8vw, 6rem);
+        }
+        
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: clamp(2rem, 8vw, 4rem) var(--container-padding);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 40vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: float 20s linear infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        .logo {
+            font-size: clamp(2.5rem, 10vw, 5rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+            line-height: 1.2;
+        }
+        
+        .tagline {
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+            line-height: 1.4;
+        }
+        
+        .version {
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            display: inline-block;
+            font-size: clamp(0.9rem, 3vw, 1.2rem);
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero {
+            padding: var(--section-spacing) var(--container-padding);
+            background: linear-gradient(to bottom, var(--light-bg) 0%, var(--card-bg) 100%);
+            text-align: center;
+        }
+        
+        .hero h2 {
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        
+        .hero p {
+            font-size: clamp(1rem, 3vw, 1.4rem);
+            color: #666;
+            line-height: 1.7;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+        
+        .device-image {
+            width: 100%;
+            max-width: 600px;
+            height: clamp(250px, 40vw, 400px);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border-radius: var(--border-radius);
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .device-image::before {
+            content: 'W.R.P.A V2.0';
+            font-size: clamp(1.8rem, 5vw, 3.2rem);
+            font-weight: 800;
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+        }
+        
+        .device-image::after {
+            content: '';
+            position: absolute;
+            width: clamp(100px, 20vw, 200px);
+            height: clamp(100px, 20vw, 200px);
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            top: -10%;
+            right: -10%;
+        }
+        
+        /* ส่วนเพิ่มเติม: รายละเอียดสินค้า */
+        .product-details {
+            padding: var(--section-spacing) var(--container-padding);
+            background: var(--light-bg);
+        }
+        
+        .product-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(2rem, 5vw, 4rem);
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-image::before {
+            content: 'W.R.P.A V2.0';
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 800;
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+        }
+        
+        .product-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .product-info h3 {
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        
+        .product-description {
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            color: #666;
+            line-height: 1.7;
+        }
+        
+        .product-features {
+            list-style: none;
+            margin-top: 1rem;
+        }
+        
+        .product-features li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        .product-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .product-features li::before {
+            content: '✓';
+            color: #4caf50;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .product-cta {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .cta-button {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 30px;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            flex: 1;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .cta-button.secondary {
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+        
+        .cta-button.secondary:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .features {
+            padding: var(--section-spacing) var(--container-padding);
+            background: var(--card-bg);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            color: var(--text-color);
+            margin-bottom: clamp(2rem, 6vw, 4rem);
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+            gap: clamp(1.5rem, 4vw, 2.5rem);
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .feature-card {
+            background: linear-gradient(135deg, #f5f7ff 0%, var(--card-bg) 100%);
+            padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1rem, 3vw, 2rem);
+            border-radius: var(--border-radius);
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid #e8ecff;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.2);
+            border-color: var(--primary-color);
+        }
+        
+        .feature-icon {
+            font-size: clamp(3rem, 8vw, 4.5rem);
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-card h3 {
+            font-size: clamp(1.2rem, 3vw, 1.6rem);
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        
+        .feature-card p {
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            color: #666;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+        
+        .specs {
+            padding: var(--section-spacing) var(--container-padding);
+            background: linear-gradient(to bottom, var(--card-bg) 0%, var(--light-bg) 100%);
+        }
+        
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+            gap: clamp(1.5rem, 4vw, 2.5rem);
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .spec-box {
+            background: var(--card-bg);
+            padding: clamp(1.5rem, 4vw, 2.5rem);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .spec-box h3 {
+            font-size: clamp(1.2rem, 3vw, 1.6rem);
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            line-height: 1.3;
+        }
+        
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #f0f0f0;
+            flex-wrap: wrap;
+        }
+        
+        .spec-item:last-child {
+            border-bottom: none;
+        }
+        
+        .spec-label {
+            font-weight: 600;
+            color: var(--text-color);
+            flex: 1;
+            min-width: 120px;
+        }
+        
+        .spec-value {
+            color: #666;
+            text-align: right;
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        .pricing {
+            padding: var(--section-spacing) var(--container-padding);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .pricing h2 {
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+            gap: clamp(1.5rem, 4vw, 2.5rem);
+            max-width: 1000px;
+            margin: clamp(2rem, 6vw, 4rem) auto 0;
+        }
+        
+        .price-card {
+            background: var(--card-bg);
+            color: var(--text-color);
+            padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1rem, 3vw, 2rem);
+            border-radius: var(--border-radius);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .price-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+        
+        .price-card.popular {
+            border: 3px solid #ffd700;
+            position: relative;
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: -0.8rem;
+            right: 1rem;
+            background: #ffd700;
+            color: var(--text-color);
+            padding: 0.3rem 1.2rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+        }
+        
+        .price-card h3 {
+            font-size: clamp(1.2rem, 3vw, 1.6rem);
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        
+        .price {
+            font-size: clamp(2rem, 6vw, 3.2rem);
+            font-weight: 800;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+        
+        .price-unit {
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            color: #666;
+            margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+        }
+        
+        .price-features {
+            text-align: left;
+            margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+            list-style: none;
+            flex-grow: 1;
+        }
+        
+        .price-features li {
+            padding: 0.7rem 0;
+            border-bottom: 1px solid #f0f0f0;
+            color: #666;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+        }
+        
+        .price-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .buy-button {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: clamp(0.8rem, 2.5vw, 1rem) 2rem;
+            border: none;
+            border-radius: 30px;
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: auto;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .buy-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .contact {
+            padding: var(--section-spacing) var(--container-padding);
+            background: var(--card-bg);
+            text-align: center;
+        }
+        
+        .contact h2 {
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            color: var(--text-color);
+            margin-bottom: clamp(2rem, 6vw, 4rem);
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: clamp(1.5rem, 4vw, 3.5rem);
+            flex-wrap: wrap;
+            margin-bottom: clamp(2rem, 6vw, 4rem);
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            color: #666;
+        }
+        
+        .contact-icon {
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            color: var(--primary-color);
+        }
+        
+        .contact p {
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            color: #666;
+            margin-top: clamp(2rem, 6vw, 4rem);
+        }
+        
+        .contact p strong {
+            color: var(--text-color);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: clamp(0.8rem, 3vw, 1.5rem);
+            margin-top: clamp(2rem, 6vw, 4rem);
+        }
+        
+        .social-btn {
+            width: clamp(2.5rem, 8vw, 4rem);
+            height: clamp(2.5rem, 8vw, 4rem);
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .footer {
+            background: #2d3748;
+            color: white;
+            padding: clamp(1.5rem, 4vw, 2.5rem) var(--container-padding);
+            text-align: center;
+        }
+        
+        .footer p {
+            margin-bottom: 0.8rem;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+        }
+        
+        /* Responsive Breakpoints */
+        @media (max-width: 768px) {
+            :root {
+                --container-padding: 4vw;
+            }
+            
+            .product-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .product-image {
+                height: 300px;
+            }
+            
+            .product-cta {
+                flex-direction: column;
+            }
+            
+            .spec-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .spec-value {
+                text-align: left;
+                margin-top: 0.3rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            :root {
+                --container-padding: 3vw;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 1.2rem;
+            }
+            
+            .social-links {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">W.R.P.A</div>
+            <div class="tagline">Wathdog Real-Time Power Alert </div>
+            <div class="version">VERSION 2.0</div>
+        </div>
+        
+        <div class="hero">
+            <h2>ไม่พลาดทุกครั้งที่ไฟดับ!</h2>
+            <p>ระบบแจ้งเตือนไฟฟ้าดับผ่าน LINE แบบเรียลไทม์ ติดตั้งง่าย ใช้งานสะดวก ราคาประหยัด เหมาะสำหรับบ้าน ร้านค้า และโรงงาน</p>
+            <div class="device-image"></div>
+        </div>
+        
+        <!-- ส่วนเพิ่มเติม: รายละเอียดสินค้า -->
+        <div class="product-details">
+            <h2 class="section-title">📦 รายละเอียดสินค้า</h2>
+            <div class="product-content">
+                <div class="product-image"></div>
+                <div class="product-info">
+                    <h3>W.R.P.A V2.0 - ระบบแจ้งเตือนไฟฟ้าดับผ่าน WiFi</h3>
+                    <p class="product-description">
+                        ระบบแจ้งเตือนไฟฟ้าดับแบบเรียลไทม์ผ่าน LINE ไม่ต้องกังวลเรื่องไฟฟ้าดับอีกต่อไป 
+                        ออกแบบมาเพื่อแจ้งเตือนทันทีเมื่อไฟฟ้าดับ พร้อมรายงานสถานะการใช้งาน 
+                        เหมาะสำหรับบ้านเรือน ร้านค้า โรงงาน และสถานที่ที่ต้องการการแจ้งเตือนทันที
+                    </p>
+                    <ul class="product-features">
+                        <li>แจ้งเตือนผ่าน LINE ทันทีเมื่อไฟฟ้าดับ</li>
+                        <li>ตรวจสอบสถานะการใช้งานได้ตลอดเวลา</li>
+                        <li>รองรับการเชื่อมต่อ WiFi 2.4GHz</li>
+                        <li>หน้าจอ OLED แสดงสถานะการทำงาน</li>
+                        <li>ตั้งค่าได้ง่ายผ่านเว็บเบราว์เซอร์</li>
+                        <li>รองรับการทำงานแบบออฟไลน์</li>
+                        <li>ประหยัดพลังงาน ใช้งานได้ยาวนาน</li>
+                        <li>รับประกันคุณภาพ 1 ปี</li>
+                    </ul>
+                    <div class="product-cta">
+                        <a href="https://lin.ee/O0ZHlxU" class="cta-button" target="_blank">📱 สั่งซื้อผ่าน LINE</a>
+                        <a href="#specs" class="cta-button secondary">ดูสเปคทั้งหมด</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="features">
+            <h2 class="section-title">✨ คุณสมบัติเด่น</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔔</div>
+                    <h3>แจ้งเตือนแบบเรียลไทม์</h3>
+                    <p>แจ้งเตือนผ่าน LINE ทันทีเมื่อไฟฟ้าดับ ไม่ต้องคอยเช็คด้วยตัวเอง</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>ใช้งานง่าย</h3>
+                    <p>ตั้งค่าได้ง่ายผ่านเว็บเบราว์เซอร์ ไม่ต้องเขียนโปรแกรม</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>ประหยัดพลังงาน</h3>
+                    <p>ออกแบบมาเพื่อประหยัดพลังงาน ใช้งานได้ต่อเนื่องยาวนาน</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>ปลอดภัย</h3>
+                    <p>ผ่านมาตรฐานความปลอดภัย ใช้งานได้อย่างมั่นใจ</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="specs" id="specs">
+            <h2 class="section-title">📊 สเปคและรายละเอียด</h2>
+            <div class="specs-grid">
+                <div class="spec-box">
+                    <h3>🔌 ข้อมูลทางเทคนิค</h3>
+                    <div class="spec-item">
+                        <span class="spec-label">ไมโครคอนโทรลเลอร์</span>
+                        <span class="spec-value">ESP32</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">การเชื่อมต่อ</span>
+                        <span class="spec-value">WiFi 2.4GHz</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">หน้าจอแสดงผล</span>
+                        <span class="spec-value">OLED 0.96 นิ้ว</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">แรงดันไฟฟ้าเข้า</span>
+                        <span class="spec-value">5V DC / 220V AC</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">พลังงาน</span>
+                        <span class="spec-value">Adapter 5V 2A</span>
+                    </div>
+                </div>
+                <div class="spec-box">
+                    <h3>📦 สิ่งที่ได้รับในกล่อง</h3>
+                    <div class="spec-item">
+                        <span class="spec-label">บอร์ดหลัก W.R.P.A</span>
+                        <span class="spec-value">1 ชุด</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">Adapter 5V</span>
+                        <span class="spec-value">1 ตัว</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">สาย USB</span>
+                        <span class="spec-value">1 เส้น</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">คู่มือการใช้งาน</span>
+                        <span class="spec-value">1 เล่ม</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">กล่องบรรจุภัณฑ์</span>
+                        <span class="spec-value">1 กล่อง</span>
+                    </div>
+                </div>
+                <div class="spec-box">
+                    <h3>📋 รายละเอียดการใช้งาน</h3>
+                    <div class="spec-item">
+                        <span class="spec-label">การตั้งค่า</span>
+                        <span class="spec-value">ผ่านเว็บเบราว์เซอร์</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">การแจ้งเตือน</span>
+                        <span class="spec-value">ผ่าน LINE</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">ระยะเวลาการทำงาน</span>
+                        <span class="spec-value">24/7</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">การอัพเดตเฟิร์มแวร์</span>
+                        <span class="spec-value">รองรับ OTA</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">การรับประกัน</span>
+                        <span class="spec-value">1 ปี</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="pricing" id="pricing">
+            <h2>💰 แพ็คเกจสินค้า</h2>
+            <div class="pricing-cards">
+                <div class="price-card">
+                    <h3>🔧 DIY Kit</h3>
+                    <div class="price">฿990</div>
+                    <div class="price-unit">ชุดประกอบเอง</div>
+                    <ul class="price-features">
+                        <li>✅ ESP32 Board</li>
+                        <li>✅ OLED Display</li>
+                        <li>✅ Relay Module</li>
+                        <li>✅ อุปกรณ์ครบชุด</li>
+                        <li>✅ คู่มือประกอบ</li>
+                        <li>✅ โค้ดพร้อมใช้</li>
+                        <li>❌ ไม่รวมประกอบ</li>
+                        <li>❌ ไม่รวมติดตั้ง</li>
+                    </ul>
+                    <a href="https://lin.ee/O0ZHlxU" class="buy-button" target="_blank">
+                        <span>📱 สั่งซื้อผ่าน LINE</span>
+                    </a>
+                </div>
+                
+                <div class="price-card popular">
+                    <div class="popular-badge">🔥 ขายดี</div>
+                    <h3>📦 Complete Set</h3>
+                    <div class="price">฿1,490</div>
+                    <div class="price-unit">ประกอบสำเร็จ</div>
+                    <ul class="price-features">
+                        <li>✅ ประกอบเสร็จพร้อมใช้</li>
+                        <li>✅ กล่องกันน้ำ</li>
+                        <li>✅ ทดสอบแล้ว 100%</li>
+                        <li>✅ คู่มือการใช้งาน</li>
+                        <li>✅ รับประกัน 3 เดือน</li>
+                        <li>✅ Support ตลอดชีพ</li>
+                        <li>❌ ไม่รวมติดตั้ง</li>
+                    </ul>
+                    <a href="https://lin.ee/O0ZHlxU" class="buy-button" target="_blank">
+                        <span>📱 สั่งซื้อผ่าน LINE</span>
+                    </a>
+                </div>
+                
+                <div class="price-card">
+                    <h3>🏠 Premium Package</h3>
+                    <div class="price">฿2,490</div>
+                    <div class="price-unit">พร้อมติดตั้ง</div>
+                    <ul class="price-features">
+                        <li>✅ ประกอบสำเร็จพร้อมใช้</li>
+                        <li>✅ กล่องกันน้ำ IP65</li>
+                        <li>✅ ทดสอบการทำงาน</li>
+                        <li>✅ รับประกัน 1 ปี</li>
+                        <li>✅ ฟรีค่าแรง 1 ปี</li>
+                        <li>✅ Support ตลอดอายุการใช้งาน</li>
+                    </ul>
+                    <a href="https://lin.ee/O0ZHlxU" class="buy-button" target="_blank">
+                        <span>📱 สั่งซื้อผ่าน LINE</span>
+                    </a>
+                </div>
+            </div>
+            <p style="margin-top: 30px; font-size: 14px; opacity: 0.9;">
+                *การติดตั้งถึงหน้าบ้าน: กรุงเทพและปริมณฑล ต่างจังหวัดบวกค่าเดินทาง
+            </p>
+        </div>
+        
+        <div class="contact">
+            <h2>📞 ติดต่อเรา</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">☎️</div>
+                    <div>0822736628</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">💬</div>
+                    <div>LINE: @245Lazal</div>
+                </div>
+            </div>
+            <p>ติดต่อเราเพื่อ<strong> ปรึกษา ชำระเงิน หรือ ติดตั้ง</strong></p>
+            <div class="social-links">
+                <a href="https://lin.ee/O0ZHlxU" class="social-btn" target="_blank">💬</a>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>&copy; 2025 W.R.P.A V2.0 - Wathdog Real-Time Power Alert </p>
+            <p>ระบบแจ้งเตือนไฟฟ้าดับผ่าน LINE แบบเรียลไทม์</p>
+        </div>
+        
+    </div>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Add scroll animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe elements for animation
+        document.querySelectorAll('.feature-card, .spec-box, .price-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.5s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
