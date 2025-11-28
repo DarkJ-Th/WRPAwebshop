@@ -587,6 +587,446 @@
             box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
         }
         
+        /* ปุ่มเปิดป๊อปอัพ LINE OA */
+        .line-oa-button {
+            background: linear-gradient(135deg, #06c755 0%, #00b900 100%);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 30px;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 1rem auto;
+            box-shadow: 0 5px 15px rgba(6, 199, 85, 0.3);
+        }
+        
+        .line-oa-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(6, 199, 85, 0.4);
+        }
+        
+        /* ป๊อปอัพ LINE OA */
+        .line-oa-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            animation: fadeIn 0.3s ease;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+        
+        .line-oa-modal-content {
+            background-color: white;
+            margin: 2% auto;
+            padding: 0;
+            border-radius: 24px;
+            width: 95%;
+            max-width: 1200px;
+            position: relative;
+            animation: slideIn 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .line-oa-close {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s;
+            line-height: 1;
+            z-index: 10;
+            background: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .line-oa-close:hover {
+            color: #333;
+            background: #f5f5f5;
+        }
+        
+        /* ส่วน LINE OA Package ในป๊อปอัพ */
+        .line-oa-package {
+            padding: 40px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
+            color: white;
+            border-radius: 24px;
+        }
+        
+        .line-oa-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .line-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #06c755 0%, #00b900 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            box-shadow: 0 10px 30px rgba(6, 199, 85, 0.3);
+            font-size: 40px;
+        }
+        
+        .line-oa-header h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5em);
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .line-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: clamp(0.9rem, 2.5vw, 1.1em);
+            font-weight: 300;
+        }
+        
+        .line-pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .line-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .line-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--card-color-1), var(--card-color-2));
+        }
+        
+        .line-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .line-card.free {
+            --card-color-1: #667eea;
+            --card-color-2: #764ba2;
+        }
+        
+        .line-card.basic {
+            --card-color-1: #06c755;
+            --card-color-2: #00b900;
+        }
+        
+        .line-card.pro {
+            --card-color-1: #f093fb;
+            --card-color-2: #f5576c;
+            border: 2px solid #f093fb;
+        }
+        
+        .line-card.pro .badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+        
+        .line-plan-name {
+            font-size: 1.6em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--card-color-1), var(--card-color-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .line-plan-price {
+            font-size: 2.2em;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 5px;
+        }
+        
+        .line-plan-price span {
+            font-size: 0.4em;
+            font-weight: 400;
+            color: #64748b;
+        }
+        
+        .line-plan-period {
+            color: #64748b;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+        
+        .line-feature {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            padding: 12px;
+            background: #f8fafc;
+            border-radius: 10px;
+        }
+        
+        .line-feature-icon {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, var(--card-color-1), var(--card-color-2));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        
+        .line-feature-text {
+            flex: 1;
+        }
+        
+        .line-feature-title {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 3px;
+            font-size: 0.95em;
+        }
+        
+        .line-feature-desc {
+            font-size: 0.85em;
+            color: #64748b;
+            line-height: 1.4;
+        }
+        
+        .line-info-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+        }
+        
+        .line-info-section h3 {
+            font-size: 1.6em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+        }
+        
+        .line-info-section h3::before {
+            content: '';
+            width: 5px;
+            height: 30px;
+            background: linear-gradient(135deg, #06c755, #00b900);
+            border-radius: 3px;
+            margin-right: 12px;
+        }
+        
+        .line-comparison-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            font-size: 0.9em;
+        }
+        
+        .line-comparison-table thead {
+            background: linear-gradient(135deg, #1e293b, #334155);
+        }
+        
+        .line-comparison-table th {
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .line-comparison-table tbody tr {
+            transition: background 0.2s ease;
+        }
+        
+        .line-comparison-table tbody tr:nth-child(even) {
+            background: #f8fafc;
+        }
+        
+        .line-comparison-table tbody tr:hover {
+            background: #e0f2fe;
+        }
+        
+        .line-comparison-table td {
+            padding: 15px;
+            color: #334155;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .line-comparison-table td:first-child {
+            font-weight: 600;
+            color: #06c755;
+        }
+        
+        .line-alert-box {
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 4px solid;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .line-alert-box.warning {
+            background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+            border-color: #f97316;
+        }
+        
+        .line-alert-box.info {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border-color: #3b82f6;
+        }
+        
+        .line-alert-box.tip {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border-color: #06c755;
+        }
+        
+        .line-alert-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .line-alert-box.warning .line-alert-icon {
+            background: #f97316;
+            color: white;
+        }
+        
+        .line-alert-box.info .line-alert-icon {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        .line-alert-box.tip .line-alert-icon {
+            background: #06c755;
+            color: white;
+        }
+        
+        .line-alert-content h4 {
+            font-size: 1.1em;
+            margin-bottom: 8px;
+            color: #1e293b;
+        }
+        
+        .line-alert-content ul {
+            margin: 8px 0 0 18px;
+        }
+        
+        .line-alert-content li {
+            margin: 6px 0;
+            color: #475569;
+            line-height: 1.5;
+            font-size: 0.9em;
+        }
+        
+        .line-recommendations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+        
+        .line-recommendation-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .line-recommendation-card:hover {
+            transform: translateX(3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .line-recommendation-card.free-plan {
+            border-color: #667eea;
+        }
+        
+        .line-recommendation-card.basic-plan {
+            border-color: #06c755;
+        }
+        
+        .line-recommendation-card.pro-plan {
+            border-color: #f093fb;
+        }
+        
+        .line-recommendation-card h5 {
+            font-size: 1.1em;
+            margin-bottom: 8px;
+            color: #1e293b;
+        }
+        
+        .line-recommendation-card p {
+            color: #475569;
+            line-height: 1.5;
+            font-size: 0.9em;
+        }
+        
+        .line-footer {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            padding: 30px 20px 0;
+            font-size: 0.9em;
+        }
+        
+        .line-footer p {
+            margin: 5px 0;
+        }
+        
         .footer {
             background: #2d3748;
             color: white;
@@ -627,6 +1067,37 @@
                 text-align: left;
                 margin-top: 0.3rem;
             }
+            
+            .line-oa-modal-content {
+                margin: 5% auto;
+                width: 95%;
+                padding: 0;
+            }
+            
+            .line-oa-package {
+                padding: 25px 20px;
+            }
+            
+            .line-info-section {
+                padding: 20px 15px;
+            }
+            
+            .line-info-section h3 {
+                font-size: 1.4em;
+            }
+            
+            .line-comparison-table {
+                font-size: 0.8em;
+            }
+            
+            .line-comparison-table th,
+            .line-comparison-table td {
+                padding: 10px;
+            }
+            
+            .line-recommendations-grid {
+                grid-template-columns: 1fr;
+            }
         }
         
         @media (max-width: 480px) {
@@ -641,6 +1112,10 @@
             
             .social-links {
                 flex-wrap: wrap;
+            }
+            
+            .line-pricing-cards {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -669,14 +1144,17 @@
                     <p class="product-description">
                         ระบบแจ้งเตือนไฟฟ้าดับแบบเรียลไทม์ผ่าน LINE ไม่ต้องกังวลเรื่องไฟฟ้าดับอีกต่อไป 
                         ออกแบบมาเพื่อแจ้งเตือนทันทีเมื่อไฟฟ้าดับ พร้อมรายงานสถานะการใช้งาน 
-                        เหมาะสำหรับบ้านเรือน ร้านค้า โรงงาน และสถานที่ที่ต้องการการแจ้งเตือนทันที
+                        เหมาะสำหรับบ้านเรือน ร้านค้า โรงงาน และสถานที่ที่ต้องการการเฝ้าระวัง
+                        ต้องการให้แจ้งเตือนทันที
+                        สามารถช่วยลดความเสียหายที่จะเกิดขึ้นได้
                     </p>
                     <ul class="product-features">
                         <li>แจ้งเตือนผ่าน LINE ทันทีเมื่อไฟฟ้าดับ</li>
                         <li>ตรวจสอบสถานะการใช้งานได้ตลอดเวลา</li>
                         <li>รองรับการเชื่อมต่อ WiFi 2.4GHz</li>
                         <li>หน้าจอ OLED แสดงสถานะการทำงาน</li>
-                        <li>ตั้งค่าได้ง่ายผ่าน wifi panel</li>
+                        <li>ตั้งค่าได้ง่ายผ่าน wifi </li>
+                        <li>รองรับการทำงานแบบออฟไลน์</li>
                         <li>ประหยัดพลังงาน ใช้งานได้ยาวนาน</li>
                         <li>รับประกันคุณภาพ 1 ปี</li>
                     </ul>
@@ -733,22 +1211,36 @@
                     </div>
                     <div class="spec-item">
                         <span class="spec-label">แรงดันไฟฟ้าเข้า</span>
-                        <span class="spec-value"> 220V AC</span>
+                        <span class="spec-value">220V AC</span>
                     </div>
                     <div class="spec-item">
                         <span class="spec-label">พลังงาน</span>
-                        <span class="spec-value">5V 1w</span>
+                        <span class="spec-value"> 5V 1W</span>
+                    </div>
+                </div>
+                <div class="spec-box">
+                    <h3>📦 สิ่งที่ได้รับในกล่อง</h3>
+                    <div class="spec-item">
+                        <span class="spec-label">บอร์ดหลัก W.R.P.A</span>
+                        <span class="spec-value">1 ชุด</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">คู่มือการติดตั้ง</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">คู่มือการตั้งค่าการใช้งาน</span>
                     </div>
                 </div>
                 <div class="spec-box">
                     <h3>📋 รายละเอียดการใช้งาน</h3>
                     <div class="spec-item">
                         <span class="spec-label">การตั้งค่า</span>
-                        <span class="spec-value">ผ่าน wifi panel</span>
+                        <span class="spec-value">ผ่าน wifi Panel</span>
                     </div>
                     <div class="spec-item">
                         <span class="spec-label">การแจ้งเตือน</span>
-                        <span class="spec-value">ผ่าน LINE</span>
+                        <span class="spec-value">LINE กลุ่ม</span>
+                        <span class="spec-value">LINE ส่วนตัว</span>
                     </div>
                     <div class="spec-item">
                         <span class="spec-label">การรับประกัน</span>
@@ -819,6 +1311,11 @@
             <p style="margin-top: 30px; font-size: 14px; opacity: 0.9;">
                 *การติดตั้งถึงหน้าบ้าน: กรุงเทพและปริมณฑล ต่างจังหวัดบวกค่าเดินทาง
             </p>
+            
+            <!-- ปุ่มเปิดป๊อปอัพ LINE OA -->
+            <button class="line-oa-button" onclick="openLineOAModal()">
+                <span>💬 ดูแพ็กเกจ LINE OA</span>
+            </button>
         </div>
         
         <div class="contact">
@@ -837,17 +1334,253 @@
             <div class="social-links">
                 <a href="https://lin.ee/7TzYfDl" class="social-btn" target="_blank">💬</a>
             </div>
-        </div>
-        
-        <div class="footer">
+        </div>       
+       <div class="footer">
             <p> Wathdog Real-Time Power Alert </p>
             <p>ระบบแจ้งเตือนไฟฟ้าดับผ่าน LINE แบบเรียลไทม์</p>
             <p>&copy;2025 W.R.P.A V2.0 - Developer JMCU </p>
+        </div>        
+    </div>
+
+    <!-- ป๊อปอัพ LINE OA Package -->
+    <div id="lineOAModal" class="line-oa-modal">
+        <div class="line-oa-modal-content">
+            <span class="line-oa-close" onclick="closeLineOAModal()">&times;</span>
+            <div class="line-oa-package">
+                <div class="line-oa-header">
+                    <div class="line-logo">💬</div>
+                    <h2>LINE Official Account</h2>
+                    <p class="line-subtitle">ราคาแพ็กเกจและคำแนะนำ |ข้อมูลทางเทคนิค ปี 2025</p>
+                </div>
+                
+                <div class="line-pricing-cards">
+                    <div class="line-card free">
+                        <div class="line-plan-name">Free</div>
+                        <div class="line-plan-price">0 <span>บาท</span></div>
+                        <div class="line-plan-period">ฟรี</div>
+                        
+                        <div class="line-feature">
+                            <div class="line-feature-icon">📊</div>
+                            <div class="line-feature-text">
+                                <div class="line-feature-title">ข้อความ Broadcast</div>
+                                <div class="line-feature-desc">300 ข้อความต่อเดือน </div>
+                            </div>
+                        </div>
+                        
+                        <div class="line-feature">
+                            <div class="line-feature-icon">🎯</div>
+                            <div class="line-feature-text">
+                                <div class="line-feature-title">เหมาะสำหรับ</div>
+                                <div class="line-feature-desc">ธุรกิจเริ่มต้น ทดลองใช้งาน</div>
+                            </div>
+                        </div>
+                        
+                        <div class="line-feature">
+                            <div class="line-feature-icon">⚠️</div>
+                            <div class="line-feature-text">
+                                <div class="line-feature-title">ข้อจำกัด</div>
+                                <div class="line-feature-title">ใช้ได้เท่าจำนวนฟรี</div>
+                                <div class="line-feature-desc">ไม่สามารถซื้อข้อความเพิ่มได้</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="line-card basic">
+                        <div class="line-plan-name">Basic</div>
+                        <div class="line-plan-price">1,280 <span>บาท</span></div>
+                        <div class="line-plan-period">ต่อเดือน (ไม่รวม VAT 7%)</div>
+                        
+                        <div class="line-feature">
+                            <div class="line-feature-icon">📊</div>
+                            <div class="line-feature-text">
+                                <div class="line-feature-title">ข้อความ Broadcast</div>
+                                <div class="line-feature-desc">15,000 ข้อความต่อเดือน</div>
+                            </div>
+                        </div>
+                        
+                        <div class="line-feature">
+                            <div class="line-feature-icon">💰</div>
+                            <div class="line-feature-text">
+                                <div class="line-feature-title">ข้อความเกิน</div>
+                                <div class="line-feature-desc">≈ 0.10 บาท/ข้อความ (หรือ 0.08 บาท)</div>
+                            </div>
+                        </div>
+                        
+                        <div class="line-feature">
+                            <div class="line-feature-icon">🎯</div>
+                            <div class="line-feature-text">
+                                <div class="line-feature-title">เหมาะสำหรับ</div>
+                                <div class="line-feature-desc">ธุรกิจขนาดกลาง ลูกค้าประจำ</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="line-card pro">
+                        <div class="badge">🔥 แนะนำ</div>
+                        <div class="line-plan-name">Pro</div>
+                        <div class="line-plan-price">1,780 <span>บาท</span></div>
+                        <div class="line-plan-period">ต่อเดือน (ไม่รวม VAT 7%)</div>
+                        
+                        <div class="line-feature">
+                            <div class="line-feature-icon">📊</div>
+                            <div class="line-feature-text">
+                                <div class="line-feature-title">ข้อความ Broadcast</div>
+                                <div class="line-feature-desc">35,000 ข้อความต่อเดือน</div>
+                            </div>
+                        </div>
+                        
+                        <div class="line-feature">
+                            <div class="line-feature-icon">💰</div>
+                            <div class="line-feature-text">
+                                <div class="line-feature-title">ข้อความเกิน</div>
+                                <div class="line-feature-desc">≈ 0.06 บาท/ข้อความ (ถูกที่สุด)</div>
+                            </div>
+                        </div>
+                        
+                        <div class="line-feature">
+                            <div class="line-feature-icon">🎯</div>
+                            <div class="line-feature-text">
+                                <div class="line-feature-title">เหมาะสำหรับ</div>
+                                <div class="line-feature-desc">ธุรกิจขนาดใหญ่ ลูกค้าหลายหมื่น</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="line-info-section">
+                    <h3>📋 ตารางเปรียบเทียบแบบละเอียด</h3>
+                    
+                    <table class="line-comparison-table">
+                        <thead>
+                            <tr>
+                                <th>แพ็กเกจ</th>
+                                <th>ราคา/เดือน (ไม่รวม VAT)</th>
+                                <th>จำนวนข้อความ Broadcast</th>
+                                <th>ค่าข้อความเกิน</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Free</td>
+                                <td>0 บาท</td>
+                                <td>300 ข้อความ</td>
+                                <td>—</td>
+                            </tr>
+                            <tr>
+                                <td>Basic</td>
+                                <td>1,280 บาท</td>
+                                <td>15,000 ข้อความ</td>
+                                <td>≈ 0.10 บาท/ข้อความ</td>
+                            </tr>
+                            <tr>
+                                <td>Pro</td>
+                                <td>1,780 บาท</td>
+                                <td>35,000 ข้อความ</td>
+                                <td>≈ 0.06 บาท/ข้อความ</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="line-alert-box info">
+                        <div class="line-alert-icon">ℹ️</div>
+                        <div class="line-alert-content">
+                            <h4>หมายเหตุสำคัญ</h4>
+                            <ul>
+                                <li>ราคาข้างต้น<strong>ไม่รวมภาษีมูลค่าเพิ่ม (VAT 7%)</strong></li>
+                                <li>แพ็กเกจ Free อาจถูกจำกัดให้ Broadcast ได้ 300 ข้อความ/เดือน ตามข้อมูลปี 2024-2025</li>
+                                <li>ค่าข้อความส่วนเกินจะแตกต่างกันตามแพ็กเกจที่เลือกใช้</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="line-info-section">
+                    <h3>⚠️ การเปลี่ยนแปลงและประเด็นสำคัญ</h3>
+                    
+                    <div class="line-alert-box warning">
+                        <div class="line-alert-icon">🔔</div>
+                        <div class="line-alert-content">
+                            <h4>การปรับราคาและเงื่อนไขล่าสุด</h4>
+                            <ul>
+                                <li>ปี 2023-2024: แพ็กเกจ Free ลดโควต้าข้อความจาก <strong>1,000 → 300 ข้อความ/เดือน</strong></li>
+                                <li>แพ็กเกจ Basic ปรับราคาจาก <strong>1,200 → 1,280 บาท/เดือน</strong></li>
+                                <li>ราคาข้อความเกินโควตา: <strong>0.06–0.10 บาท/ข้อความ</strong> (ขึ้นอยู่กับแพ็กเกจ)</li>
+                                <li>ผู้ใช้ควรติดตามการเปลี่ยนแปลงจาก LINE อย่างสม่ำเสมอ</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="line-info-section">
+                    <h3>🎯 คำแนะนำการเลือกแพ็กเกจ</h3>
+                    
+                    <div class="line-recommendations-grid">
+                        <div class="line-recommendation-card free-plan">
+                            <h5>💚 แพ็กเกจ Free</h5>
+                            <p><strong>เหมาะสำหรับ:</strong> ธุรกิจเริ่มต้น หรือต้องการทดลองใช้งาน LINE OA ก่อน แต่ต้องระวังข้อจำกัดที่ 300 ข้อความ/เดือน ซึ่งอาจไม่เพียงพอสำหรับการใช้งานจริง</p>
+                        </div>
+                        
+                        <div class="line-recommendation-card basic-plan">
+                            <h5>💙 แพ็กเกจ Basic</h5>
+                            <p><strong>เหมาะสำหรับ:</strong> ธุรกิจที่มีลูกค้าประจำหรือฐานผู้ติดตามพอสมควร ส่งข้อความไม่เกิน 15,000 ต่อเดือน ราคาเริ่มต้น 1,280 บาท/เดือน คุ้มค่าสำหรับธุรกิจขนาดกลาง</p>
+                        </div>
+                        
+                        <div class="line-recommendation-card pro-plan">
+                            <h5>💜 แพ็กเกจ Pro</h5>
+                            <p><strong>เหมาะสำหรับ:</strong> ธุรกิจที่มีฐานลูกค้าหลายหมื่นคน และต้องส่งข้อความจำนวนมาก ราคา 1,780 บาท/เดือน คุ้มค่าที่สุดถ้าคุณใช้งานหนัก เพราะค่าข้อความเกินแพ็กเกจถูกกว่า</p>
+                        </div>
+                    </div>
+                    
+                    <div class="line-alert-box tip">
+                        <div class="line-alert-icon">💡</div>
+                        <div class="line-alert-content">
+                            <h4>เคล็ดลับในการเลือก</h4>
+                            <ul>
+                                <li>คำนวณจำนวนข้อความที่คุณต้องส่งต่อเดือนก่อนตัดสินใจ</li>
+                                <li>ถ้าส่งข้อความเกิน 20,000 ต่อเดือน ควรเลือก Pro จะคุ้มกว่า</li>
+                                <li>เริ่มจาก Free เพื่อทดลองก่อน จากนั้นค่อยอัปเกรด</li>
+                                <li>ตรวจสอบรายงานการใช้งานเป็นประจำเพื่อปรับแพ็กเกจให้เหมาะสม</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="line-footer">
+                    <p><strong>ข้อมูล ณ วันที่อัพเดท: ปี 2025</strong></p>
+                    <p>LINE Official Account Thailand</p>
+                    <p style="margin-top: 15px; font-size: 0.9em;">หมายเหตุ: ราคาและเงื่อนไขอาจมีการเปลี่ยนแปลง กรุณาตรวจสอบกับ LINE อย่างเป็นทางการ</p>
+                </div>
+            </div>
         </div>
-        
     </div>
 
     <script>
+        // ฟังก์ชันเปิดปิดป๊อปอัพ LINE OA
+        function openLineOAModal() {
+            document.getElementById('lineOAModal').style.display = 'block';
+            document.body.style.overflow = 'hidden'; // ป้องกันการ scroll ด้านหลัง
+        }
+        
+        function closeLineOAModal() {
+            document.getElementById('lineOAModal').style.display = 'none';
+            document.body.style.overflow = 'auto'; // อนุญาตให้ scroll ได้อีกครั้ง
+        }
+        
+        // ปิดป๊อปอัพเมื่อคลิกนอกพื้นที่
+        window.onclick = function(event) {
+            const modal = document.getElementById('lineOAModal');
+            if (event.target == modal) {
+                closeLineOAModal();
+            }
+        }
+        
+        // ปิดป๊อปอัพด้วยปุ่ม ESC
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeLineOAModal();
+            }
+        });
+        
         // Smooth scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
