@@ -1,0 +1,2360 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เครื่องแจ้งเตือนไฟดับ W.R.P.A</title>
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="เครื่องแจ้งเตือนไฟดับ W.R.P.A">
+    <meta property="og:description" content="W.R.P.A Watchdog Real-Time Power Alert VERSION 2.0 ไม่พลาดทุกครั้งที่ไฟดับ!">
+    <meta property="og:url" content="https://darkj-th.github.io/WRPAwebshop/">
+    <meta name="twitter:card" content="summary">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700;800&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary-color: #667eea;
+            --secondary-color: #764ba2;
+            --text-color: #333;
+            --light-bg: #f8f9ff;
+            --card-bg: #ffffff;
+            --shadow: 0 5px 20px rgba(0,0,0,0.1);
+            --border-radius: 15px;
+            --container-padding: 5vw;
+            --section-spacing: clamp(3rem, 8vw, 6rem);
+        }
+        
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: clamp(2rem, 8vw, 4rem) var(--container-padding);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 40vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: float 20s linear infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        .logo {
+            font-size: clamp(2.5rem, 10vw, 5rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+            line-height: 1.2;
+        }
+        
+        .tagline {
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            font-weight: 300;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+            line-height: 1.4;
+        }
+        
+        .version {
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1.5rem;
+            border-radius: 30px;
+            display: inline-block;
+            font-size: clamp(0.9rem, 3vw, 1.2rem);
+            font-weight: 600;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero {
+            padding: var(--section-spacing) var(--container-padding);
+            background: linear-gradient(to bottom, var(--light-bg) 0%, var(--card-bg) 100%);
+            text-align: center;
+        }
+        
+        .hero h2 {
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        
+        .hero p {
+            font-size: clamp(1rem, 3vw, 1.4rem);
+            color: #666;
+            line-height: 1.7;
+            max-width: 800px;
+            margin: 0 auto 3rem;
+        }
+        
+        .device-image {
+            width: 100%;
+            max-width: 600px;
+            height: clamp(250px, 40vw, 400px);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border-radius: var(--border-radius);
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .device-image::before {
+            content: 'W.R.P.A V2.0';
+            font-size: clamp(1.8rem, 5vw, 3.2rem);
+            font-weight: 800;
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+        }
+        
+        .device-image::after {
+            content: '';
+            position: absolute;
+            width: clamp(100px, 20vw, 200px);
+            height: clamp(100px, 20vw, 200px);
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            top: -10%;
+            right: -10%;
+        }
+        
+        /* ส่วนเพิ่มเติม: รายละเอียดสินค้า */
+        .product-details {
+            padding: var(--section-spacing) var(--container-padding);
+            background: var(--light-bg);
+        }
+        
+        .product-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: clamp(2rem, 5vw, 4rem);
+            align-items: center;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            border-radius: var(--border-radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-image::before {
+            content: 'W.R.P.A V2.0';
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            font-weight: 800;
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+        }
+        
+        .product-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .product-info h3 {
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        
+        .product-description {
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            color: #666;
+            line-height: 1.7;
+        }
+        
+        .product-features {
+            list-style: none;
+            margin-top: 1rem;
+        }
+        
+        .product-features li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+        
+        .product-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .product-features li::before {
+            content: '✓';
+            color: #4caf50;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .product-cta {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .cta-button {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 30px;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+            flex: 1;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .cta-button.secondary {
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+        
+        .cta-button.secondary:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .features {
+            padding: var(--section-spacing) var(--container-padding);
+            background: var(--card-bg);
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            color: var(--text-color);
+            margin-bottom: clamp(2rem, 6vw, 4rem);
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+            gap: clamp(1.5rem, 4vw, 2.5rem);
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .feature-card {
+            background: linear-gradient(135deg, #f5f7ff 0%, var(--card-bg) 100%);
+            padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1rem, 3vw, 2rem);
+            border-radius: var(--border-radius);
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 2px solid #e8ecff;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.2);
+            border-color: var(--primary-color);
+        }
+        
+        .feature-icon {
+            font-size: clamp(3rem, 8vw, 4.5rem);
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-card h3 {
+            font-size: clamp(1.2rem, 3vw, 1.6rem);
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        
+        .feature-card p {
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            color: #666;
+            line-height: 1.6;
+            flex-grow: 1;
+        }
+        
+        .specs {
+            padding: var(--section-spacing) var(--container-padding);
+            background: linear-gradient(to bottom, var(--card-bg) 0%, var(--light-bg) 100%);
+        }
+        
+        .specs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+            gap: clamp(1.5rem, 4vw, 2.5rem);
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .spec-box {
+            background: var(--card-bg);
+            padding: clamp(1.5rem, 4vw, 2.5rem);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .spec-box h3 {
+            font-size: clamp(1.2rem, 3vw, 1.6rem);
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            line-height: 1.3;
+        }
+        
+        .spec-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #f0f0f0;
+            flex-wrap: wrap;
+        }
+        
+        .spec-item:last-child {
+            border-bottom: none;
+        }
+        
+        .spec-label {
+            font-weight: 600;
+            color: var(--text-color);
+            flex: 1;
+            min-width: 120px;
+        }
+        
+        .spec-value {
+            color: #666;
+            text-align: right;
+            flex: 1;
+            min-width: 150px;
+        }
+        
+        .pricing {
+            padding: var(--section-spacing) var(--container-padding);
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            text-align: center;
+        }
+        
+        .pricing h2 {
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        
+        .pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+            gap: clamp(1.5rem, 4vw, 2.5rem);
+            max-width: 1000px;
+            margin: clamp(2rem, 6vw, 4rem) auto 0;
+        }
+        
+        .price-card {
+            background: var(--card-bg);
+            color: var(--text-color);
+            padding: clamp(1.5rem, 4vw, 2.5rem) clamp(1rem, 3vw, 2rem);
+            border-radius: var(--border-radius);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .price-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+        
+        .price-card.popular {
+            border: 3px solid #ffd700;
+            position: relative;
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: -0.8rem;
+            right: 1rem;
+            background: #ffd700;
+            color: var(--text-color);
+            padding: 0.3rem 1.2rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+        }
+        
+        .price-card h3 {
+            font-size: clamp(1.2rem, 3vw, 1.6rem);
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        
+        .price {
+            font-size: clamp(2rem, 6vw, 3.2rem);
+            font-weight: 800;
+            color: var(--text-color);
+            margin-bottom: 0.5rem;
+            line-height: 1;
+        }
+        
+        .price-unit {
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            color: #666;
+            margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+        }
+        
+        .price-features {
+            text-align: left;
+            margin-bottom: clamp(1.5rem, 4vw, 2.5rem);
+            list-style: none;
+            flex-grow: 1;
+        }
+        
+        .price-features li {
+            padding: 0.7rem 0;
+            border-bottom: 1px solid #f0f0f0;
+            color: #666;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+        }
+        
+        .price-features li:last-child {
+            border-bottom: none;
+        }
+        
+        .buy-button {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: clamp(0.8rem, 2.5vw, 1rem) 2rem;
+            border: none;
+            border-radius: 30px;
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: auto;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .buy-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .contact {
+            padding: var(--section-spacing) var(--container-padding);
+            background: var(--card-bg);
+            text-align: center;
+        }
+        
+        .contact h2 {
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            color: var(--text-color);
+            margin-bottom: clamp(2rem, 6vw, 4rem);
+            font-weight: 700;
+            line-height: 1.3;
+        }
+        
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: clamp(1.5rem, 4vw, 3.5rem);
+            flex-wrap: wrap;
+            margin-bottom: clamp(2rem, 6vw, 4rem);
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            color: #666;
+        }
+        
+        .contact-icon {
+            font-size: clamp(1.5rem, 4vw, 2.2rem);
+            color: var(--primary-color);
+        }
+        
+        .contact p {
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            color: #666;
+            margin-top: clamp(2rem, 6vw, 4rem);
+        }
+        
+        .contact p strong {
+            color: var(--text-color);
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: clamp(0.8rem, 3vw, 1.5rem);
+            margin-top: clamp(2rem, 6vw, 4rem);
+        }
+        
+        .social-btn {
+            width: clamp(2.5rem, 8vw, 4rem);
+            height: clamp(2.5rem, 8vw, 4rem);
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: clamp(1.2rem, 4vw, 1.8rem);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .social-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        /* ปุ่มเปิดป๊อปอัพ LINE OA และ Guide */
+        .pricing-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .line-oa-button {
+            background: linear-gradient(135deg, #06c755 0%, #00b900 100%);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 30px;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 5px 15px rgba(6, 199, 85, 0.3);
+        }
+        
+        .line-oa-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(6, 199, 85, 0.4);
+        }
+        
+        .guide-button {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 30px;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+        
+        .guide-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(255, 107, 107, 0.4);
+        }
+        
+        /* ป๊อปอัพ LINE OA */
+        .line-oa-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            animation: fadeIn 0.3s ease;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+        
+        .line-oa-modal-content {
+            background-color: white;
+            margin: 2% auto;
+            padding: 0;
+            border-radius: 24px;
+            width: 95%;
+            max-width: 1200px;
+            position: relative;
+            animation: slideIn 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .line-oa-close {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s;
+            line-height: 1;
+            z-index: 10;
+            background: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .line-oa-close:hover {
+            color: #333;
+            background: #f5f5f5;
+        }
+        
+        /* ส่วน LINE OA Package ในป๊อปอัพ */
+        .line-oa-package {
+            padding: 40px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #7e22ce 100%);
+            color: white;
+            border-radius: 24px;
+        }
+        
+        .line-oa-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .line-logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #06c755 0%, #00b900 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            box-shadow: 0 10px 30px rgba(6, 199, 85, 0.3);
+            font-size: 40px;
+        }
+        
+        .line-oa-header h2 {
+            font-size: clamp(1.8rem, 4vw, 2.5em);
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        .line-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: clamp(0.9rem, 2.5vw, 1.1em);
+            font-weight: 300;
+        }
+        
+        .line-pricing-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .line-card {
+            background: white;
+            border-radius: 20px;
+            padding: 30px 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .line-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--card-color-1), var(--card-color-2));
+        }
+        
+        .line-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .line-card.free {
+            --card-color-1: #667eea;
+            --card-color-2: #764ba2;
+        }
+        
+        .line-card.basic {
+            --card-color-1: #06c755;
+            --card-color-2: #00b900;
+        }
+        
+        .line-card.pro {
+            --card-color-1: #f093fb;
+            --card-color-2: #f5576c;
+            border: 2px solid #f093fb;
+        }
+        
+        .line-card.pro .badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+        
+        .line-plan-name {
+            font-size: 1.6em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--card-color-1), var(--card-color-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .line-plan-price {
+            font-size: 2.2em;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 5px;
+        }
+        
+        .line-plan-price span {
+            font-size: 0.4em;
+            font-weight: 400;
+            color: #64748b;
+        }
+        
+        .line-plan-period {
+            color: #64748b;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+        }
+        
+        .line-feature {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            padding: 12px;
+            background: #f8fafc;
+            border-radius: 10px;
+        }
+        
+        .line-feature-icon {
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, var(--card-color-1), var(--card-color-2));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        
+        .line-feature-text {
+            flex: 1;
+        }
+        
+        .line-feature-title {
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 3px;
+            font-size: 0.95em;
+        }
+        
+        .line-feature-desc {
+            font-size: 0.85em;
+            color: #64748b;
+            line-height: 1.4;
+        }
+        
+        .line-info-section {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            margin-bottom: 30px;
+        }
+        
+        .line-info-section h3 {
+            font-size: 1.6em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+        }
+        
+        .line-info-section h3::before {
+            content: '';
+            width: 5px;
+            height: 30px;
+            background: linear-gradient(135deg, #06c755, #00b900);
+            border-radius: 3px;
+            margin-right: 12px;
+        }
+        
+        .line-comparison-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            font-size: 0.9em;
+        }
+        
+        .line-comparison-table thead {
+            background: linear-gradient(135deg, #1e293b, #334155);
+        }
+        
+        .line-comparison-table th {
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .line-comparison-table tbody tr {
+            transition: background 0.2s ease;
+        }
+        
+        .line-comparison-table tbody tr:nth-child(even) {
+            background: #f8fafc;
+        }
+        
+        .line-comparison-table tbody tr:hover {
+            background: #e0f2fe;
+        }
+        
+        .line-comparison-table td {
+            padding: 15px;
+            color: #334155;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .line-comparison-table td:first-child {
+            font-weight: 600;
+            color: #06c755;
+        }
+        
+        .line-alert-box {
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 4px solid;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .line-alert-box.warning {
+            background: linear-gradient(135deg, #fff7ed 0%, #ffedd5 100%);
+            border-color: #f97316;
+        }
+        
+        .line-alert-box.info {
+            background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+            border-color: #3b82f6;
+        }
+        
+        .line-alert-box.tip {
+            background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+            border-color: #06c755;
+        }
+        
+        .line-alert-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .line-alert-box.warning .line-alert-icon {
+            background: #f97316;
+            color: white;
+        }
+        
+        .line-alert-box.info .line-alert-icon {
+            background: #3b82f6;
+            color: white;
+        }
+        
+        .line-alert-box.tip .line-alert-icon {
+            background: #06c755;
+            color: white;
+        }
+        
+        .line-alert-content h4 {
+            font-size: 1.1em;
+            margin-bottom: 8px;
+            color: #1e293b;
+        }
+        
+        .line-alert-content ul {
+            margin: 8px 0 0 18px;
+        }
+        
+        .line-alert-content li {
+            margin: 6px 0;
+            color: #475569;
+            line-height: 1.5;
+            font-size: 0.9em;
+        }
+        
+        .line-recommendations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 25px;
+        }
+        
+        .line-recommendation-card {
+            background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .line-recommendation-card:hover {
+            transform: translateX(3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .line-recommendation-card.free-plan {
+            border-color: #667eea;
+        }
+        
+        .line-recommendation-card.basic-plan {
+            border-color: #06c755;
+        }
+        
+        .line-recommendation-card.pro-plan {
+            border-color: #f093fb;
+        }
+        
+        .line-recommendation-card h5 {
+            font-size: 1.1em;
+            margin-bottom: 8px;
+            color: #1e293b;
+        }
+        
+        .line-recommendation-card p {
+            color: #475569;
+            line-height: 1.5;
+            font-size: 0.9em;
+        }
+        
+        .line-footer {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            padding: 30px 20px 0;
+            font-size: 0.9em;
+        }
+        
+        .line-footer p {
+            margin: 5px 0;
+        }
+        
+        /* ป๊อปอัพ Guide */
+        .guide-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+            animation: fadeIn 0.3s ease;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+        
+        .guide-modal-content {
+            background-color: white;
+            margin: 2% auto;
+            padding: 0;
+            border-radius: 15px;
+            width: 95%;
+            max-width: 900px;
+            position: relative;
+            animation: slideIn 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .guide-close {
+            position: absolute;
+            right: 20px;
+            top: 20px;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s;
+            line-height: 1;
+            z-index: 10;
+            background: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .guide-close:hover {
+            color: #333;
+            background: #f5f5f5;
+        }
+        
+        /* ส่วน Guide ในป๊อปอัพ */
+        .guide-container {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .guide-header {
+            background: linear-gradient(135deg, #06C755 0%, #00B900 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .guide-header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .guide-header p {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .guide-content {
+            padding: 40px 30px;
+        }
+
+        .step {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #06C755;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .step:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .step h2 {
+            color: #06C755;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .step-number {
+            background: #06C755;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+        }
+
+        .step ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .step li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+
+        .step li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #06C755;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #ffc107;
+            margin: 15px 0;
+        }
+
+        .important-box {
+            background: #ffebee;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #e53935;
+            margin: 15px 0;
+            font-weight: 500;
+        }
+
+        .important-box strong {
+            color: #c62828;
+            font-size: 1.1em;
+        }
+
+        .key-info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #1976d2;
+            margin: 15px 0;
+            font-weight: 500;
+        }
+
+        .key-info code {
+            background: #fff;
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: #d32f2f;
+            font-weight: bold;
+        }
+
+        .summary {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        .summary h2 {
+            color: #2e7d32;
+            margin-bottom: 15px;
+        }
+
+        .summary ul {
+            list-style: none;
+        }
+
+        .summary li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .summary li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #2e7d32;
+            font-weight: bold;
+        }
+
+        .guide-footer {
+            text-align: center;
+            padding: 20px;
+            background: #f8f9fa;
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .warning-box {
+            background: #fff3e0;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 5px solid #ff9800;
+            margin: 15px 0;
+            font-weight: 500;
+        }
+
+        .warning-box strong {
+            color: #e65100;
+            font-size: 1.1em;
+        }
+
+        .app-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            background: #06C755;
+            color: white;
+            border-radius: 6px;
+            margin-right: 10px;
+            font-size: 0.8em;
+        }
+
+        .video-section {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            padding: 30px;
+            border-radius: 10px;
+            margin: 40px 0 20px 0;
+            text-align: center;
+        }
+
+        .video-section h2 {
+            color: #1565c0;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .video-section p {
+            color: #424242;
+            margin-bottom: 25px;
+            font-size: 1.1em;
+        }
+
+        .video-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .video-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px 25px;
+            background: linear-gradient(135deg, #06C755 0%, #00B900 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(6, 199, 85, 0.3);
+            min-width: 200px;
+        }
+
+        .video-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(6, 199, 85, 0.4);
+            background: linear-gradient(135deg, #00B900 0%, #06C755 100%);
+        }
+
+        .video-btn i {
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+
+        .video-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .feature {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature i {
+            font-size: 2em;
+            color: #06C755;
+            margin-bottom: 10px;
+        }
+
+        .feature h3 {
+            color: #1565c0;
+            margin-bottom: 10px;
+        }
+        
+        .footer {
+            background: #2d3748;
+            color: white;
+            padding: clamp(1.5rem, 4vw, 2.5rem) var(--container-padding);
+            text-align: center;
+        }
+        
+        .footer p {
+            margin-bottom: 0.8rem;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Responsive Breakpoints */
+        @media (max-width: 768px) {
+            :root {
+                --container-padding: 4vw;
+            }
+            
+            .product-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .product-image {
+                height: 300px;
+            }
+            
+            .product-cta {
+                flex-direction: column;
+            }
+            
+            .spec-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .spec-value {
+                text-align: left;
+                margin-top: 0.3rem;
+            }
+            
+            .line-oa-modal-content,
+            .guide-modal-content {
+                margin: 5% auto;
+                width: 95%;
+                padding: 0;
+            }
+            
+            .line-oa-package {
+                padding: 25px 20px;
+            }
+            
+            .line-info-section {
+                padding: 20px 15px;
+            }
+            
+            .line-info-section h3 {
+                font-size: 1.4em;
+            }
+            
+            .line-comparison-table {
+                font-size: 0.8em;
+            }
+            
+            .line-comparison-table th,
+            .line-comparison-table td {
+                padding: 10px;
+            }
+            
+            .line-recommendations-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .pricing-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .guide-content {
+                padding: 20px 15px;
+            }
+            
+            .step {
+                padding: 15px;
+            }
+            
+            .video-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .video-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            :root {
+                --container-padding: 3vw;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 1.2rem;
+            }
+            
+            .social-links {
+                flex-wrap: wrap;
+            }
+            
+            .line-pricing-cards {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">W.R.P.A</div>
+            <div class="tagline">Wathdog Real-Time Power Alert </div>
+            <div class="version">VERSION 2.0</div>
+        </div>
+        
+        <div class="hero">
+            <h2>ไม่พลาดทุกครั้งที่ไฟดับ!</h2>
+            <p>ระบบแจ้งเตือนไฟฟ้าดับผ่าน LINE แบบเรียลไทม์ ติดตั้งง่าย ใช้งานสะดวก ราคาประหยัด เหมาะสำหรับบ้าน ร้านค้า และโรงงาน</p>
+            <div class="device-image"></div>
+        </div>
+        
+        <!-- ส่วนเพิ่มเติม: รายละเอียดสินค้า -->
+        <div class="product-details">
+            <h2 class="section-title">📦 รายละเอียดสินค้า</h2>
+            <div class="product-content">
+                <div class="product-image"></div>
+                <div class="product-info">
+                    <h3>W.R.P.A V2.0 - ระบบแจ้งเตือนไฟฟ้าดับผ่าน WiFi</h3>
+                    <p class="product-description">
+                        ระบบแจ้งเตือนไฟฟ้าดับแบบเรียลไทม์ผ่าน LINE ไม่ต้องกังวลเรื่องไฟฟ้าดับอีกต่อไป 
+                        ออกแบบมาเพื่อแจ้งเตือนทันทีเมื่อไฟฟ้าดับ พร้อมรายงานสถานะการใช้งาน 
+                        เหมาะสำหรับบ้านเรือน ร้านค้า โรงงาน และสถานที่ที่ต้องการการเฝ้าระวัง 
+                        W.R.P.A จะช่วยลดความเสียหายที่จะเกิดขึ้นได้อย่างมาก
+                    </p>
+                    <ul class="product-features">
+                        <li>แจ้งเตือนผ่าน LINE ทันทีเมื่อไฟฟ้าดับ</li>
+                        <li>ตรวจสอบสถานะการใช้งานได้ตลอดเวลา</li>
+                        <li>รองรับการเชื่อมต่อ WiFi 2.4GHz</li>
+                        <li>หน้าจอ OLED แสดงสถานะการทำงาน</li>
+                        <li>ตั้งค่าได้ง่ายผ่าน wifi</li>
+                        <li>รองรับการทำงานแบบออฟไลน์</li>
+                        <li>ประหยัดพลังงาน ใช้งานได้ยาวนาน</li>
+                        <li>รับประกันคุณภาพ 1 ปี</li>
+                    </ul>
+                    <div class="product-cta">
+                        <a href="https://lin.ee/7TzYfDl" class="cta-button" target="_blank">📱 สั่งซื้อผ่าน LINE</a>
+                        <a href="#specs" class="cta-button secondary">ดูสเปคทั้งหมด</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="features">
+            <h2 class="section-title">✨ คุณสมบัติเด่น</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔔</div>
+                    <h3>แจ้งเตือนแบบเรียลไทม์</h3>
+                    <p>แจ้งเตือนผ่าน LINE ทันทีเมื่อไฟฟ้าดับ ไม่ต้องคอยเช็คด้วยตัวเอง</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📱</div>
+                    <h3>ใช้งานง่าย</h3>
+                    <p>ตั้งค่าได้ง่ายผ่าน wifi panel</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>ประหยัดพลังงาน</h3>
+                    <p>ออกแบบมาเพื่อประหยัดพลังงาน ใช้งานได้ต่อเนื่องยาวนาน</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>ปลอดภัย</h3>
+                    <p>ผ่านมาตรฐานความปลอดภัย ใช้งานได้อย่างมั่นใจ</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="specs" id="specs">
+            <h2 class="section-title">📊 สเปคและรายละเอียด</h2>
+            <div class="specs-grid">
+                <div class="spec-box">
+                    <h3>🔌 ข้อมูลทางเทคนิค</h3>
+                    <div class="spec-item">
+                        <span class="spec-label">ไมโครคอนโทรลเลอร์</span>
+                        <span class="spec-value">ESP32</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">การเชื่อมต่อ</span>
+                        <span class="spec-value">WiFi 2.4GHz</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">หน้าจอแสดงผล</span>
+                        <span class="spec-value">OLED 0.96 นิ้ว</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">แรงดันไฟฟ้าเข้า</span>
+                        <span class="spec-value">220V AC</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">พลังงาน</span>
+                        <span class="spec-value"> 5V 1W</span>
+                    </div>
+                </div>
+                <div class="spec-box">
+                    <h3>📦 สิ่งที่ได้รับในกล่อง</h3>
+                    <div class="spec-item">
+                        <span class="spec-label">บอร์ดหลัก W.R.P.A</span>
+                        <span class="spec-value">1 ชุด</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">คู่มือการใช้งาน</span>
+                    </div>
+                </div>
+                <div class="spec-box">
+                    <h3>📋 รายละเอียดการใช้งาน</h3>
+                    <div class="spec-item">
+                        <span class="spec-label">การตั้งค่า</span>
+                        <span class="spec-value">ผ่าน wifi</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">การแจ้งเตือน</span>
+                        <span class="spec-value">LINE กลุ่ม</span>
+                        <span class="spec-value">LINE ส่วนตัว</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">ระยะเวลาการทำงาน</span>
+                        <span class="spec-value">24 ชม.</span>
+                    </div>
+                    <div class="spec-item">
+                        <span class="spec-label">การรับประกัน</span>
+                        <span class="spec-value">1 ปี</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="pricing" id="pricing">
+            <h2>💰 แพ็คเกจสินค้า</h2>
+            <div class="pricing-cards">
+                <div class="price-card">
+                    <h3>🔧 DIY Kit</h3>
+                    <div class="price">฿990</div>
+                    <div class="price-unit">ชุดประกอบเอง</div>
+                    <ul class="price-features">
+                        <li>✅ ESP32 Board</li>
+                        <li>✅ OLED Display</li>
+                        <li>✅ Relay Module</li>
+                        <li>✅ อุปกรณ์ครบชุด</li>
+                        <li>✅ คู่มือประกอบ</li>
+                        <li>✅ โค้ดพร้อมใช้</li>
+                        <li>❌ ไม่รวมประกอบ</li>
+                        <li>❌ ไม่รวมติดตั้ง</li>
+                    </ul>
+                    <a href="https://lin.ee/7TzYfDl" class="buy-button" target="_blank">
+                        <span>📱 สั่งซื้อผ่าน LINE</span>
+                    </a>
+                </div>
+                
+                <div class="price-card popular">
+                    <div class="popular-badge">🔥 ขายดี</div>
+                    <h3>📦 Complete Set</h3>
+                    <div class="price">฿1,490</div>
+                    <div class="price-unit">ประกอบสำเร็จ</div>
+                    <ul class="price-features">
+                        <li>✅ ประกอบเสร็จพร้อมใช้</li>
+                        <li>✅ กล่องกันน้ำ</li>
+                        <li>✅ ทดสอบแล้ว 100%</li>
+                        <li>✅ คู่มือการใช้งาน</li>
+                        <li>✅ รับประกัน 3 เดือน</li>
+                        <li>✅ Support ตลอดชีพ</li>
+                        <li>❌ ไม่รวมติดตั้ง</li>
+                    </ul>
+                    <a href="https://lin.ee/7TzYfDl" class="buy-button" target="_blank">
+                        <span>📱 สั่งซื้อผ่าน LINE</span>
+                    </a>
+                </div>
+                
+                <div class="price-card">
+                    <h3>🏠 Premium Package</h3>
+                    <div class="price">฿2,490</div>
+                    <div class="price-unit">พร้อมติดตั้ง</div>
+                    <ul class="price-features">
+                        <li>✅ ประกอบสำเร็จพร้อมใช้</li>
+                        <li>✅ กล่องกันน้ำ IP65</li>
+                        <li>✅ ทดสอบการทำงาน</li>
+                        <li>✅ รับประกัน 1 ปี</li>
+                        <li>✅ ฟรีค่าแรง 1 ปี</li>
+                        <li>✅ Support ตลอดอายุการใช้งาน</li>
+                    </ul>
+                    <a href="https://lin.ee/7TzYfDl" class="buy-button" target="_blank">
+                        <span>📱 สั่งซื้อผ่าน LINE</span>
+                    </a>
+                </div>
+            </div>
+            <p style="margin-top: 30px; font-size: 14px; opacity: 0.9;">
+                *การติดตั้งถึงหน้าบ้าน: กรุงเทพและปริมณฑล ต่างจังหวัดบวกค่าเดินทาง
+            </p>
+            
+            <!-- ปุ่มเปิดป๊อปอัพ LINE OA และ Guide -->
+            <div class="pricing-buttons">
+                <button class="line-oa-button" onclick="openLineOAModal()">
+                    <span>💬 ดูแพ็กเกจ LINE OA</span>
+                </button>
+                <button class="guide-button" onclick="openGuideModal()">
+                    <span>📖 คู่มือการใช้งาน</span>
+                </button>
+            </div>
+        </div>
+        
+        <div class="contact">
+            <h2>📞 ติดต่อเรา</h2>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <div class="contact-icon">☎️</div>
+                    <div>0822736628</div>
+                </div>
+                <div class="contact-item">
+                    <div class="contact-icon">💬</div>
+                    <div>LINE: @245Lazal</div>
+                </div>
+            </div>
+            <p>ติดต่อเราเพื่อ<strong> ปรึกษา ชำระเงิน หรือ ติดตั้ง</strong></p>
+            <div class="social-links">
+                <a href="https://lin.ee/7TzYfDl" class="social-btn" target="_blank">💬</a>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p> Wathdog Real-Time Power Alert </p>
+            <p>ระบบแจ้งเตือนไฟฟ้าดับผ่าน LINE แบบเรียลไทม์</p>
+            <p>&copy;2025 W.R.P.A V2.0 - Developer JMCU </p>
+                        <p>service by ช่าง เจมส์ </p>
+        </div>  
+        
+    </div>
+
+    <!-- ป๊อปอัพ LINE OA Package -->
+    <div id="lineOAModal" class="line-oa-modal">
+        <div class="line-oa-modal-content">
+            <span class="line-oa-close" onclick="closeLineOAModal()">&times;</span>
+            <div class="line-oa-package">
+                <div class="line-oa-header">
+                    <div class="line-logo">💬</div>
+                    <h2>LINE Official Account</h2>
+                    <p class="line-subtitle">ราคาแพ็กเกจและคำแนะนำ | ปี 2025</p>
+                </div>
+                
+                <div class="line-pricing-cards">
+                    <div class="line-card free">
+                        <div class="line-plan-name">Free</div>
+                        <div class="line-plan-price">0 <span>บาท</span></div>
+                        <div class="line-plan-period">ฟรีตลอดไป</div>
+                        
+                        <div class="line-feature">
+                            <div class="line-feature-icon">📊</div>
+                            <div class="line-feature-text">
+                                <div class="line-feature-title">ข้อความ Broadcast</div>
+                                <div class="line-feature-desc">300 ข้อความต่อเดือน (บางแหล่งระบุ 500)</div>
+                            </div>
+                        </div>
+                        
+                        <div class="line-feature">
+                            <div class="line-feature-icon">🎯</div>
+                            <div class="line-feature-text">
+                                <div class="line-feature-title">เหมาะสำหรับ</div>
+                                <div class="line-feature-desc">ธุรกิจเริ่มต้น ทดลองใช้งาน</div>
+                            </div>
+                        </div>
+                        
+                        <div class="line-feature">
+                            <div class="line-feature-icon">⚠️</div>
+                            <div class="line-feature-text">
+                                <div class="line-feature-title">ข้อจำกัด</div>
+                                <div class="line-feature-desc">ไม่สามารถซื้อข้อความเพิ่มได้</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="line-card basic">
+                        <div class="line-plan-name">Basic</div>
+                        <div class="line-plan-price">1,280 <span>บาท</span></div>
+                        <div class="line-plan-period">ต่อเดือน (ก่อน VAT 7%)</div>
+                        
+                        <div class="line-feature">
+                            <div class="line-feature-icon">📊</div>
+                            <div class="line-feature-text">
+                                <div class="line-feature-title">ข้อความ Broadcast</div>
+                                <div class="line-feature-desc">15,000 ข้อความต่อเดือน</div>
+                            </div>
+                        </div>
+                        
+                        <div class="line-feature">
+                            <div class="line-feature-icon">💰</div>
+                            <div class="line-feature-text">
+                                <div class="line-feature-title">ข้อความเกิน</div>
+                                <div class="line-feature-desc">≈ 0.10 บาท/ข้อความ (หรือ 0.08 บาท)</div>
+                            </div>
+                        </div>
+                        
+                        <div class="line-feature">
+                            <div class="line-feature-icon">🎯</div>
+                            <div class="line-feature-text">
+                                <div class="line-feature-title">เหมาะสำหรับ</div>
+                                <div class="line-feature-desc">ธุรกิจขนาดกลาง ลูกค้าประจำ</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="line-card pro">
+                        <div class="badge">🔥 แนะนำ</div>
+                        <div class="line-plan-name">Pro</div>
+                        <div class="line-plan-price">1,780 <span>บาท</span></div>
+                        <div class="line-plan-period">ต่อเดือน (ก่อน VAT 7%)</div>
+                        
+                        <div class="line-feature">
+                            <div class="line-feature-icon">📊</div>
+                            <div class="line-feature-text">
+                                <div class="line-feature-title">ข้อความ Broadcast</div>
+                                <div class="line-feature-desc">35,000 ข้อความต่อเดือน</div>
+                            </div>
+                        </div>
+                        
+                        <div class="line-feature">
+                            <div class="line-feature-icon">💰</div>
+                            <div class="line-feature-text">
+                                <div class="line-feature-title">ข้อความเกิน</div>
+                                <div class="line-feature-desc">≈ 0.06 บาท/ข้อความ (ถูกที่สุด)</div>
+                            </div>
+                        </div>
+                        
+                        <div class="line-feature">
+                            <div class="line-feature-icon">🎯</div>
+                            <div class="line-feature-text">
+                                <div class="line-feature-title">เหมาะสำหรับ</div>
+                                <div class="line-feature-desc">ธุรกิจขนาดใหญ่ ลูกค้าหลายหมื่น</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="line-info-section">
+                    <h3>📋 ตารางเปรียบเทียบแบบละเอียด</h3>
+                    
+                    <table class="line-comparison-table">
+                        <thead>
+                            <tr>
+                                <th>แพ็กเกจ</th>
+                                <th>ราคา/เดือน (ก่อน VAT)</th>
+                                <th>จำนวนข้อความ Broadcast</th>
+                                <th>ค่าข้อความเกิน</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Free</td>
+                                <td>0 บาท</td>
+                                <td>300 ข้อความ</td>
+                                <td>—</td>
+                            </tr>
+                            <tr>
+                                <td>Basic</td>
+                                <td>1,280 บาท</td>
+                                <td>15,000 ข้อความ</td>
+                                <td>≈ 0.10 บาท/ข้อความ</td>
+                            </tr>
+                            <tr>
+                                <td>Pro</td>
+                                <td>1,780 บาท</td>
+                                <td>35,000 ข้อความ</td>
+                                <td>≈ 0.06 บาท/ข้อความ</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="line-alert-box info">
+                        <div class="line-alert-icon">ℹ️</div>
+                        <div class="line-alert-content">
+                            <h4>หมายเหตุสำคัญ</h4>
+                            <ul>
+                                <li>ราคาข้างต้น<strong>ไม่รวมภาษีมูลค่าเพิ่ม (VAT 7%)</strong></li>
+                                <li>แพ็กเกจ Free อาจถูกจำกัดให้ Broadcast ได้ 300 ข้อความ/เดือน ตามข้อมูลปี 2024-2025</li>
+                                <li>ค่าข้อความส่วนเกินจะแตกต่างกันตามแพ็กเกจที่เลือกใช้</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="line-info-section">
+                    <h3>⚠️ การเปลี่ยนแปลงและประเด็นสำคัญ</h3>
+                    
+                    <div class="line-alert-box warning">
+                        <div class="line-alert-icon">🔔</div>
+                        <div class="line-alert-content">
+                            <h4>การปรับราคาและเงื่อนไขล่าสุด</h4>
+                            <ul>
+                                <li>ปี 2023-2024: แพ็กเกจ Free ลดโควต้าข้อความจาก <strong>1,000 → 500 ข้อความ/เดือน</strong></li>
+                                <li>แพ็กเกจ Basic ปรับราคาจาก <strong>1,200 → 1,280 บาท/เดือน</strong></li>
+                                <li>ราคาข้อความเกินโควตา: <strong>0.06–0.10 บาท/ข้อความ</strong> (ขึ้นอยู่กับแพ็กเกจ)</li>
+                                <li>ผู้ใช้ควรติดตามการเปลี่ยนแปลงจาก LINE อย่างสม่ำเสมอ</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="line-info-section">
+                    <h3>🎯 คำแนะนำการเลือกแพ็กเกจ</h3>
+                    
+                    <div class="line-recommendations-grid">
+                        <div class="line-recommendation-card free-plan">
+                            <h5>💚 แพ็กเกจ Free</h5>
+                            <p><strong>เหมาะสำหรับ:</strong> ธุรกิจเริ่มต้น หรือต้องการทดลองใช้งาน LINE OA ก่อน แต่ต้องระวังข้อจำกัดที่ 300 ข้อความ/เดือน ซึ่งอาจไม่เพียงพอสำหรับการใช้งานจริง</p>
+                        </div>
+                        
+                        <div class="line-recommendation-card basic-plan">
+                            <h5>💙 แพ็กเกจ Basic</h5>
+                            <p><strong>เหมาะสำหรับ:</strong> ธุรกิจที่มีลูกค้าประจำหรือฐานผู้ติดตามพอสมควร ส่งข้อความไม่เกิน 15,000 ต่อเดือน ราคาเริ่มต้น 1,280 บาท/เดือน คุ้มค่าสำหรับธุรกิจขนาดกลาง</p>
+                        </div>
+                        
+                        <div class="line-recommendation-card pro-plan">
+                            <h5>💜 แพ็กเกจ Pro</h5>
+                            <p><strong>เหมาะสำหรับ:</strong> ธุรกิจที่มีฐานลูกค้าหลายหมื่นคน และต้องส่งข้อความจำนวนมาก ราคา 1,780 บาท/เดือน คุ้มค่าที่สุดถ้าคุณใช้งานหนัก เพราะค่าข้อความเกินแพ็กเกจถูกกว่า</p>
+                        </div>
+                    </div>
+                    
+                    <div class="line-alert-box tip">
+                        <div class="line-alert-icon">💡</div>
+                        <div class="line-alert-content">
+                            <h4>เคล็ดลับในการเลือก</h4>
+                            <ul>
+                                <li>คำนวณจำนวนข้อความที่คุณต้องส่งต่อเดือนก่อนตัดสินใจ</li>
+                                <li>ถ้าส่งข้อความเกิน 20,000 ต่อเดือน ควรเลือก Pro จะคุ้มกว่า</li>
+                                <li>เริ่มจาก Free เพื่อทดลองก่อน จากนั้นค่อยอัปเกรด</li>
+                                <li>ตรวจสอบรายงานการใช้งานเป็นประจำเพื่อปรับแพ็กเกจให้เหมาะสม</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="line-footer">
+                    <p><strong>ข้อมูล ณ วันที่อัพเดท: ปี 2025</strong></p>
+                    <p>LINE Official Account Thailand</p>
+                    <p style="margin-top: 15px; font-size: 0.9em;">หมายเหตุ: ราคาและเงื่อนไขอาจมีการเปลี่ยนแปลง กรุณาตรวจสอบกับ LINE อย่างเป็นทางการ</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ป๊อปอัพ Guide -->
+    <div id="guideModal" class="guide-modal">
+        <div class="guide-modal-content">
+            <span class="guide-close" onclick="closeGuideModal()">&times;</span>
+            <div class="guide-container">
+                <div class="guide-header">
+                    <h1>🚀 คู่มือการใช้งาน LINE Official Account</h1>
+                    <p>ขั้นตอนครบถ้วนตั้งแต่ดาวน์โหลดแอปจนถึงการหา User ID / Group ID</p>
+                </div>
+
+                <div class="guide-content">
+                    <!-- ส่วนวิดีโอสอน -->
+                    <div class="video-section">
+                        <h2><i class="fas fa-video"></i> วิดีโอสอนประกอบ</h2>
+                        <p>ดูวิดีโอสอนแบบ Step-by-Step เพื่อความเข้าใจที่ชัดเจนยิ่งขึ้น</p>
+                        
+                        <div class="video-buttons">
+                            <a href="https://drive.google.com/drive/folders/1iIRFdmHIkOLg2DJjKXUM_4C4JXp3hFQm" target="_blank" class="video-btn">
+                                <i class="fas fa-play-circle"></i> ดูวิดีโอสอนทั้งหมด
+                            </a>
+                        </div>
+
+                        <div class="video-features">
+                            <div class="feature">
+                                <i class="fas fa-mobile-alt"></i>
+                                <h3>ติดตั้งแอป</h3>
+                                <p>วิธีดาวน์โหลดและติดตั้งแอป LINE OA</p>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-cogs"></i>
+                                <h3>ตั้งค่า API</h3>
+                                <p>การเปิดใช้งาน Messaging API</p>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-code"></i>
+                                <h3>Webhook</h3>
+                                <p>การตั้งค่า Webhook และทดสอบ</p>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-users"></i>
+                                <h3>User/Group ID</h3>
+                                <p>วิธีการหา User ID และ Group ID</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ขั้นตอนต่างๆ -->
+                    <div class="step">
+                        <h2><span class="step-number">1</span>ดาวน์โหลดแอป LINE Official Account</h2>
+                        <div style="display: flex; gap: 20px; margin-top: 15px;">
+                            <div style="flex: 1;">
+                                <h3 style="color: #06C755; margin-bottom: 10px;"><span class="app-icon">A</span> Android</h3>
+                                <ul>
+                                    <li>เปิด Play Store</li>
+                                    <li>ค้นหา: <strong>LINE Official Account</strong></li>
+                                    <li>กด <strong>ติดตั้ง</strong></li>
+                                </ul>
+                            </div>
+                            <div style="flex: 1;">
+                                <h3 style="color: #06C755; margin-bottom: 10px;"><span class="app-icon">i</span> iPhone</h3>
+                                <ul>
+                                    <li>เปิด App Store</li>
+                                    <li>ค้นหา: <strong>LINE Official Account</strong></li>
+                                    <li>กด <strong>Get</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ขั้นตอนที่เหลือ (2-12) -->
+                    <div class="step">
+                        <h2><span class="step-number">2</span>สร้างบัญชี LINE OA</h2>
+                        <ul>
+                            <li>เปิดแอป LINE Official Account</li>
+                            <li>กด <strong>Create account</strong></li>
+                            <li>ตั้งชื่อ OA และเลือกหมวดหมู่</li>
+                            <li>กด <strong>Create</strong></li>
+                        </ul>
+                    </div>
+
+                    <div class="step">
+                        <h2><span class="step-number">3</span>เข้าเว็บ LINE OA Manager</h2>
+                        <ul>
+                            <li>ไปที่เว็บ <code>https://manager.line.biz</code></li>
+                            <li>ล็อกอินด้วยบัญชี LINE</li>
+                            <li>เลือก OA ที่สร้างไว้</li>
+                        </ul>
+                    </div>
+
+                    <div class="step">
+                        <h2><span class="step-number">4</span>เปิดใช้ Messaging API</h2>
+                        <div class="warning-box">
+                            <strong>⚠️ จุดที่ทำให้หลายคนงง!</strong> หลังจากเปิด API แล้ว การตั้งค่าจะย้ายไปที่ LINE Developers Console
+                        </div>
+                        <ul>
+                            <li>ใน OA Manager เลือกเมนู <strong>Settings</strong></li>
+                            <li>เลือก <strong>Messaging API</strong></li>
+                            <li>กด <strong>Enable Messaging API</strong></li>
+                            <li>ระบบจะให้เลือก Provider</li>
+                            <li>ถ้าไม่มี Provider ให้กด <strong>Create new Provider</strong></li>
+                            <li>กดตกลงจนจบกระบวนการ</li>
+                        </ul>
+                        <div class="important-box">
+                            <strong>📢 หลังจากเปิดสำเร็จ:</strong><br>
+                            ระบบจะขึ้นแจ้งว่า "ให้ไปตั้งค่าที่ LINE Developers Console"<br>
+                            นี่คือปกติ เพราะหลังจากเปิด API แล้ว การตั้งค่าจะย้ายไปที่ <code>https://developers.line.biz</code>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <h2><span class="step-number">5</span>ไปตั้งค่าต่อใน LINE Developers Console</h2>
+                        <ul>
+                            <li>เปิดเว็บ <code>https://developers.line.biz/console</code></li>
+                            <li>ล็อกอินด้วยบัญชี LINE</li>
+                            <li>เลือก Provider ที่สร้างไว้</li>
+                            <li>เลือก <strong>Messaging API Channel</strong> ที่เชื่อมกับ OA</li>
+                        </ul>
+                        <div class="key-info">
+                            <strong>🎯 ข้อมูลสำคัญในหน้านี้:</strong><br>
+                            • <code>Channel secret</code><br>
+                            • <code>Channel access token</code><br>
+                            • <code>Webhook settings</code><br>
+                            • <code>Bot options</code>
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <h2><span class="step-number">6</span>เปิด "Allow bot to join chat" (สำคัญมาก!)</h2>
+                        <div class="important-box">
+                            <strong>⚠️ สำคัญมาก:</strong> ถ้าไม่เปิด บอทจะไม่เห็นข้อความในกลุ่ม และไม่สามารถเข้าได้เลย
+                        </div>
+                        <ul>
+                            <li>ทำใน <strong>แอป LINE OA</strong> (ไม่ใช่ใน Developers Console)</li>
+                            <li>เปิดแอป LINE Official Account</li>
+                            <li>เข้า OA ของคุณ</li>
+                            <li>กดรูปฟันเฟือง <strong>Settings</strong></li>
+                            <li>เลือก <strong>Chats</strong></li>
+                            <li>เปิด <strong>Allow bot to join chats</strong> → <strong>ON</strong></li>
+                        </ul>
+                    </div>
+
+                    <div class="step">
+                        <h2><span class="step-number">7</span>เปิดใช้ Webhook แบบถูกต้อง</h2>
+                        <ul>
+                            <li>ทำใน <strong>LINE Developers Console</strong></li>
+                            <li>ไปที่หน้า Channel (Messaging API)</li>
+                            <li>เลื่อนลงไปหัวข้อ <strong>Webhook settings</strong></li>
+                            <li>เปิดสวิตช์ <strong>Use webhook</strong> → <strong>ON</strong></li>
+                            <li>ช่อง <strong>Webhook URL</strong> → ยังไม่ใส่ (เราจะใส่ในขั้นตอนต่อไป)</li>
+                        </ul>
+                    </div>
+
+                    <div class="step">
+                        <h2><span class="step-number">8</span>สร้าง Webhook URL โดยใช้ webhook.site</h2>
+                        <ul>
+                            <li>ไปที่เว็บ <code>https://webhook.site</code></li>
+                            <li>ระบบจะสร้าง URL ส่วนตัวให้ เช่น <code>https://webhook.site/12345-abcdef</code></li>
+                            <li>คัดลอก URL นั้นไว้</li>
+                        </ul>
+                    </div>
+
+                    <div class="step">
+                        <h2><span class="step-number">9</span>ใส่ Webhook URL บน LINE Developers</h2>
+                        <ul>
+                            <li>กลับไปที่ <code>https://developers.line.biz/console</code></li>
+                            <li>เข้า Messaging API Channel</li>
+                            <li>วาง URL ลงในช่อง <strong>Webhook URL</strong></li>
+                            <li>กด <strong>Verify</strong></li>
+                        </ul>
+                        <div class="highlight">
+                            <strong>✅ ถ้าขึ้น "Success"</strong> แปลว่าพร้อมใช้งาน
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <h2><span class="step-number">10</span>วิธีหา User ID ผ่าน Webhook.site</h2>
+                        <ul>
+                            <li>เปิดแอป LINE บนมือถือ</li>
+                            <li>ทักข้อความใดก็ได้ไปที่ OA ของคุณ</li>
+                            <li>ดูข้อมูลใน webhook.site จะมี JSON เด้งขึ้นมา</li>
+                        </ul>
+                        
+                        <div class="code-block">{
+  "events": [
+    {
+      "type": "message",
+      "source": {
+        "type": "user",
+        "userId": "Uxxxxxxxxxxxx"
+      },
+      "message": {
+        "type": "text",
+        "text": "ข้อความที่ส่ง"
+      }
+    }
+  ]
+}</div>
+
+                        <div class="key-info">
+                            <strong>🎯 ข้อมูลที่ต้องเก็บ:</strong><br>
+                            • <code>userId</code> = ID ของผู้ใช้ที่ส่งข้อความ (ขึ้นต้นด้วย U)
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <h2><span class="step-number">11</span>วิธีหา Group ID ผ่าน Webhook.site</h2>
+                        <ul>
+                            <li>สร้างกลุ่ม LINE</li>
+                            <li>เชิญ OA เข้ากลุ่ม</li>
+                            <li>พิมพ์ข้อความใดก็ได้ในกลุ่ม</li>
+                        </ul>
+
+                        <div class="code-block">{
+  "events": [
+    {
+      "type": "message",
+      "source": {
+        "type": "group",
+        "groupId": "Cxxxxxxxxxxxx",
+        "userId": "Uxxxxxxxxxxxx"
+      },
+      "message": {
+        "type": "text",
+        "text": "ข้อความที่ส่งในกลุ่ม"
+      }
+    }
+  ]
+}</div>
+
+                        <div class="key-info">
+                            <strong>🎯 ข้อมูลที่ต้องเก็บ:</strong><br>
+                            • <code>groupId</code> = ID ของกลุ่ม (ขึ้นต้นด้วย C)<br>
+                            • <code>userId</code> = ID ของผู้ส่งข้อความในกลุ่ม (ขึ้นต้นด้วย U)
+                        </div>
+                    </div>
+
+                    <div class="step">
+                        <h2><span class="step-number">12</span>ข้อมูลสำคัญที่มักงง</h2>
+                        <div class="important-box">
+                            <strong>📝 จุดสำคัญที่ต้องจำ:</strong><br><br>
+                            1. หลังเปิด Messaging API ใน OA Manager → ต้องไปตั้งค่าส่วนใหญ่ใน LINE Developers Console<br><br>
+                            2. การรับข้อความ: ผู้ใช้ต้อง <strong>"ทัก OA ก่อน"</strong><br><br>
+                            3. การรับข้อความจากกลุ่ม ต้อง:<br>
+                            &nbsp;&nbsp;• เชิญ OA เข้ากลุ่ม<br>
+                            &nbsp;&nbsp;• เปิด Allow bot to join chats<br>
+                            &nbsp;&nbsp;• พิมพ์ข้อความอย่างน้อย 1 ครั้ง
+                        </div>
+                    </div>
+
+                    <!-- ส่วนสรุป -->
+                    <div class="summary">
+                        <h2>📌 สรุปข้อมูลสำคัญที่ต้องเก็บ</h2>
+                        <div style="background: white; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                            <strong style="color: #c62828;">🔑 จาก LINE Developers Console:</strong><br>
+                            • <code style="background: #ffebee; padding: 3px 8px; border-radius: 4px; color: #c62828;">Channel Secret</code><br>
+                            • <code style="background: #ffebee; padding: 3px 8px; border-radius: 4px; color: #c62828;">Channel Access Token</code>
+                        </div>
+                        <div style="background: white; padding: 15px; border-radius: 8px; margin: 15px 0;">
+                            <strong style="color: #1565c0;">🎯 จาก Webhook.site:</strong><br>
+                            • <code style="background: #e3f2fd; padding: 3px 8px; border-radius: 4px; color: #1565c0;">userId</code> (สำหรับส่งข้อความถึงผู้ใช้)<br>
+                            • <code style="background: #e3f2fd; padding: 3px 8px; border-radius: 4px; color: #1565c0;">groupId</code> (สำหรับส่งข้อความถึงกลุ่ม)
+                        </div>
+                        <strong style="color: #2e7d32;">ขั้นตอนโดยสรุป:</strong>
+                        <ul>
+                            <li>ดาวน์โหลดแอป → สร้าง OA → เปิด Messaging API</li>
+                            <li>ย้ายไปตั้งค่าใน LINE Developers Console</li>
+                            <li>เปิด Allow bot to join chats ในแอป LINE OA</li>
+                            <li>ตั้งค่า Webhook โดยใช้ webhook.site</li>
+                            <li>หา user ID / group ID ผ่านการส่งข้อความ</li>
+                        </ul>
+                    </div>
+
+                    <!-- ส่วนวิดีโอสอนด้านล่าง -->
+                    <div class="video-section">
+                        <h2><i class="fas fa-graduation-cap"></i> ต้องการความช่วยเหลือเพิ่มเติม?</h2>
+                        <p>ดูวิดีโอสอนแบบละเอียดทุกขั้นตอน พร้อมตัวอย่างจริง</p>
+                        
+                        <div class="video-buttons">
+                            <a href="https://drive.google.com/drive/folders/1iIRFdmHIkOLg2DJjKXUM_4C4JXp3hFQm" target="_blank" class="video-btn">
+                                <i class="fas fa-play-circle"></i> เปิดวิดีโอสอนทั้งหมด
+                            </a>
+                        </div>
+
+                        <div style="margin-top: 20px; padding: 15px; background: white; border-radius: 8px;">
+                            <h3 style="color: #1565c0; margin-bottom: 10px;"><i class="fas fa-info-circle"></i> หมายเหตุ</h3>
+                            <p>วิดีโอสอนประกอบด้วยทุกขั้นตอนที่อธิบายในคู่มือนี้ พร้อมตัวอย่างการปฏิบัติจริง</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="guide-footer">
+                    <p>📱 LINE Official Account & Messaging API Guide - อัปเดตตามประสบการณ์จริง</p>
+                    <p style="margin-top: 10px;">
+                        <a href="https://drive.google.com/drive/folders/1iIRFdmHIkOLg2DJjKXUM_4C4JXp3hFQm" target="_blank" style="color: #06C755; text-decoration: none;">
+                            <i class="fas fa-video"></i> วิดีโอสอนทั้งหมด
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ฟังก์ชันเปิดปิดป๊อปอัพ LINE OA
+        function openLineOAModal() {
+            document.getElementById('lineOAModal').style.display = 'block';
+            document.body.style.overflow = 'hidden'; // ป้องกันการ scroll ด้านหลัง
+        }
+        
+        function closeLineOAModal() {
+            document.getElementById('lineOAModal').style.display = 'none';
+            document.body.style.overflow = 'auto'; // อนุญาตให้ scroll ได้อีกครั้ง
+        }
+        
+        // ฟังก์ชันเปิดปิดป๊อปอัพ Guide
+        function openGuideModal() {
+            document.getElementById('guideModal').style.display = 'block';
+            document.body.style.overflow = 'hidden'; // ป้องกันการ scroll ด้านหลัง
+        }
+        
+        function closeGuideModal() {
+            document.getElementById('guideModal').style.display = 'none';
+            document.body.style.overflow = 'auto'; // อนุญาตให้ scroll ได้อีกครั้ง
+        }
+        
+        // ปิดป๊อปอัพเมื่อคลิกนอกพื้นที่
+        window.onclick = function(event) {
+            const lineOAModal = document.getElementById('lineOAModal');
+            const guideModal = document.getElementById('guideModal');
+            
+            if (event.target == lineOAModal) {
+                closeLineOAModal();
+            }
+            if (event.target == guideModal) {
+                closeGuideModal();
+            }
+        }
+        
+        // ปิดป๊อปอัพด้วยปุ่ม ESC
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeLineOAModal();
+                closeGuideModal();
+            }
+        });
+        
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Add scroll animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+        
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+        
+        // Observe elements for animation
+        document.querySelectorAll('.feature-card, .spec-box, .price-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.5s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
