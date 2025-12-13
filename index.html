@@ -161,7 +161,7 @@
             right: -10%;
         }
         
-        /* ส่วนเพิ่มเติม: รายละเอียดสินค้า */
+        /* ส่วนเพิ่มเติม: รายละเอียดสินค้า - แบบแนวตั้ง */
         .product-details {
             padding: var(--section-spacing) var(--container-padding);
             background: var(--light-bg);
@@ -169,17 +169,16 @@
         
         .product-content {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: clamp(2rem, 5vw, 4rem);
+            grid-template-columns: 1fr;
+            gap: clamp(2rem, 5vw, 3rem);
             align-items: center;
-            max-width: 1000px;
+            max-width: 500px;
             margin: 0 auto;
         }
         
         .product-image {
             width: 100%;
-            height: 400px;
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            height: 500px;
             border-radius: var(--border-radius);
             display: flex;
             align-items: center;
@@ -187,20 +186,82 @@
             box-shadow: var(--shadow);
             position: relative;
             overflow: hidden;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+        }
+        
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: white;
+            padding: 20px;
+            transition: transform 0.5s ease;
+        }
+        
+        .product-image:hover img {
+            transform: scale(1.03);
         }
         
         .product-image::before {
-            content: 'W.R.P.A V2.0';
-            font-size: clamp(1.5rem, 4vw, 2.5rem);
-            font-weight: 800;
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: calc(var(--border-radius) - 5px);
+            pointer-events: none;
+            z-index: 2;
+        }
+        
+        .product-image::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(102, 126, 234, 0.1) 0%,
+                rgba(118, 75, 162, 0.2) 50%,
+                rgba(102, 126, 234, 0.1) 100%
+            );
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: var(--border-radius);
+        }
+        
+        .product-image:hover::after {
+            opacity: 1;
+        }
+        
+        .image-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
             color: white;
-            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+            padding: 20px;
+            text-align: center;
+            font-size: clamp(1rem, 3vw, 1.2rem);
+            font-weight: 600;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            z-index: 2;
+        }
+        
+        .product-image:hover .image-caption {
+            transform: translateY(0);
         }
         
         .product-info {
             display: flex;
             flex-direction: column;
             gap: 1.5rem;
+            text-align: center;
         }
         
         .product-info h3 {
@@ -215,21 +276,34 @@
             font-size: clamp(1rem, 3vw, 1.2rem);
             color: #666;
             line-height: 1.7;
+            text-align: justify;
         }
         
         .product-features {
             list-style: none;
             margin-top: 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
         }
         
         .product-features li {
-            padding: 0.8rem 0;
+            padding: 0.8rem 1rem;
             border-bottom: 1px solid #f0f0f0;
             font-size: clamp(0.9rem, 2.5vw, 1rem);
             color: #666;
             display: flex;
             align-items: center;
             gap: 0.8rem;
+            background: #f8f9ff;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .product-features li:hover {
+            background: #667eea;
+            color: white;
+            transform: translateX(5px);
         }
         
         .product-features li:last-child {
@@ -241,12 +315,18 @@
             color: #4caf50;
             font-weight: bold;
             font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+        
+        .product-features li:hover::before {
+            color: white;
         }
         
         .product-cta {
             display: flex;
             gap: 1rem;
             margin-top: 1.5rem;
+            justify-content: center;
         }
         
         .cta-button {
@@ -262,7 +342,7 @@
             text-decoration: none;
             display: inline-block;
             text-align: center;
-            flex: 1;
+            min-width: 200px;
         }
         
         .cta-button:hover {
@@ -1426,17 +1506,22 @@
                 --container-padding: 4vw;
             }
             
-            .product-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
+            .product-image {
+                height: 400px;
             }
             
-            .product-image {
-                height: 300px;
+            .product-features {
+                grid-template-columns: 1fr;
             }
             
             .product-cta {
                 flex-direction: column;
+                align-items: center;
+            }
+            
+            .cta-button {
+                width: 100%;
+                max-width: 300px;
             }
             
             .spec-item {
@@ -1510,6 +1595,10 @@
                 --container-padding: 3vw;
             }
             
+            .product-image {
+                height: 350px;
+            }
+            
             .contact-info {
                 flex-direction: column;
                 gap: 1.2rem;
@@ -1523,6 +1612,16 @@
                 grid-template-columns: 1fr;
             }
         }
+        
+        @media (max-width: 360px) {
+            .product-image {
+                height: 300px;
+            }
+            
+            .product-features li {
+                font-size: 0.8rem;
+            }
+        }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
@@ -1530,7 +1629,7 @@
     <div class="container">
         <div class="header">
             <div class="logo">W.R.P.A</div>
-            <div class="tagline">Wathdog Real-Time Power Alert </div>
+            <div class="tagline">Watchdog Real-Time Power Alert</div>
             <div class="version">VERSION 2.0</div>
         </div>
         
@@ -1544,7 +1643,11 @@
         <div class="product-details">
             <h2 class="section-title">📦 รายละเอียดสินค้า</h2>
             <div class="product-content">
-                <div class="product-image"></div>
+                <!-- ภาพ W.R.P.A V2.0 ในการ์ดแนวตั้ง -->
+                <div class="product-image">
+                    <img src="18762.jpg" alt="W.R.P.A V2.0 ผลิตภัณฑ์จริง">
+                    <div class="image-caption">W.R.P.A V2.0 - ผลิตภัณฑ์จริง</div>
+                </div>
                 <div class="product-info">
                     <h3>W.R.P.A V2.0 - ระบบแจ้งเตือนไฟฟ้าดับผ่าน WiFi</h3>
                     <p class="product-description">
@@ -1620,7 +1723,7 @@
                     </div>
                     <div class="spec-item">
                         <span class="spec-label">พลังงาน</span>
-                        <span class="spec-value"> 5V 1W</span>
+                        <span class="spec-value">5V 1W</span>
                     </div>
                 </div>
                 <div class="spec-box">
@@ -1748,12 +1851,11 @@
         </div>
         
         <div class="footer">
-            <p> Wathdog Real-Time Power Alert </p>
+            <p>Watchdog Real-Time Power Alert</p>
             <p>ระบบแจ้งเตือนไฟฟ้าดับผ่าน LINE แบบเรียลไทม์</p>
-            <p>&copy;2025 W.R.P.A V2.0 - Developer JMCU </p>
-                        <p>service by ช่าง เจมส์ </p>
-        </div>  
-        
+            <p>&copy;2025 W.R.P.A V2.0 - Developer JMCU</p>
+            <p>service by ช่าง เจมส์</p>
+        </div>
     </div>
 
     <!-- ป๊อปอัพ LINE OA Package -->
@@ -2086,10 +2188,10 @@
                         </ul>
                         <div class="key-info">
                             <strong>🎯 ข้อมูลสำคัญในหน้านี้:</strong><br>
-                            • <code>Channel secret</code><br>
-                            • <code>Channel access token</code><br>
-                            • <code>Webhook settings</code><br>
-                            • <code>Bot options</code>
+                            • <code style="background: #ffebee; padding: 3px 8px; border-radius: 4px; color: #c62828;">Channel Secret</code><br>
+                            • <code style="background: #ffebee; padding: 3px 8px; border-radius: 4px; color: #c62828;">Channel Access Token</code><br>
+                            • <code style="background: #ffebee; padding: 3px 8px; border-radius: 4px; color: #c62828;">Webhook settings</code><br>
+                            • <code style="background: #ffebee; padding: 3px 8px; border-radius: 4px; color: #c62828;">Bot options</code>
                         </div>
                     </div>
 
