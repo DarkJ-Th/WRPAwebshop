@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -22,6 +23,89 @@
       color: #1e2a3e;
       line-height: 1.5;
       scroll-behavior: smooth;
+    }
+
+    /* Overlay สำหรับเตือนให้ใช้ Chrome */
+    .chrome-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.95);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Prompt', sans-serif;
+      backdrop-filter: blur(8px);
+      transition: all 0.3s ease;
+    }
+    .chrome-modal {
+      background: white;
+      max-width: 500px;
+      width: 90%;
+      border-radius: 2rem;
+      padding: 2rem;
+      text-align: center;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.3);
+      animation: slideUp 0.4s ease;
+    }
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .chrome-modal i {
+      font-size: 4rem;
+      color: #4285f4;
+      margin-bottom: 1rem;
+    }
+    .chrome-modal h2 {
+      font-size: 1.8rem;
+      margin-bottom: 0.5rem;
+      color: #1e4663;
+    }
+    .chrome-modal p {
+      margin: 1rem 0;
+      color: #5a6e82;
+      line-height: 1.6;
+    }
+    .chrome-btn {
+      background: #4285f4;
+      color: white;
+      border: none;
+      padding: 0.8rem 2rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 3rem;
+      cursor: pointer;
+      margin-top: 1rem;
+      font-family: 'Prompt', sans-serif;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .chrome-btn:hover {
+      background: #3367d6;
+      transform: scale(1.02);
+    }
+    .continue-link {
+      display: inline-block;
+      margin-top: 1rem;
+      color: #ff9800;
+      text-decoration: underline;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    .hide-overlay {
+      display: none !important;
     }
 
     .container {
@@ -404,9 +488,6 @@
       transform: translateY(-2px);
       box-shadow: 0 6px 15px rgba(0,0,0,0.1);
     }
-    .contact-item i {
-      font-size: 1.2rem;
-    }
     .contact-item.line:hover { background: #06c755; color: white; }
     .contact-item.telegram:hover { background: #2c7eb6; color: white; }
     .contact-item.phone:hover { background: #ff9800; color: white; }
@@ -432,7 +513,24 @@
 </head>
 <body>
 
-<div class="container">
+<!-- Chrome Overlay - บังคับให้ใช้ Chrome เท่านั้น -->
+<div id="chromeOverlay" class="chrome-overlay">
+  <div class="chrome-modal">
+    <i class="fab fa-chrome"></i>
+    <h2>🚀 ใช้ Google Chrome เท่านั้น</h2>
+    <p>เว็บไซต์นี้รองรับการทำงานเต็มรูปแบบบน <strong>Google Chrome</strong> เท่านั้น<br>
+    เพื่อประสบการณ์ที่ดีที่สุดและฟังก์ชันการสั่งซื้อที่เสถียร</p>
+    <button class="chrome-btn" id="openChromeBtn">
+      <i class="fab fa-chrome"></i> เปิดด้วย Google Chrome
+    </button>
+    <div style="margin-top: 1rem; font-size: 0.8rem; color: #999;">
+      * หากคุณใช้ Chrome อยู่แล้ว คลิกปุ่มด้านล่างเพื่อดำเนินการต่อ
+    </div>
+    <div class="continue-link" id="continueAnywayBtn">ฉันใช้ Chrome อยู่แล้ว ดำเนินการต่อ</div>
+  </div>
+</div>
+
+<div class="container" id="mainContent" style="display: none;">
   <!-- Hero Section -->
   <div class="hero">
     <div class="hero-badge"><i class="fas fa-shield-alt"></i> REAL-TIME ALERT SYSTEM</div>
@@ -516,11 +614,11 @@
     </p>
   </div>
 
-  <!-- ฟอร์มสั่งซื้อ Telegram พร้อม Token ที่กำหนด -->
+  <!-- ฟอร์มสั่งซื้อ Telegram -->
   <div class="order-section" id="orderForm">
     <h2 style="text-align: center; margin-bottom: 1rem;"><i class="fab fa-telegram"></i> สั่งซื้อผ่าน Telegram อัตโนมัติ</h2>
     <div class="config-note">
-      <i class="fas fa-check-circle"></i> ✅ ระบบเชื่อมต่อ Telegram สำเร็จ! กรอกข้อมูลด้านล่าง ทีมงานจะติดต่อกลับภายใน 30 นาที
+      <i class="fas fa-check-circle"></i> ✅ กรอกข้อมูลด้านล่าง ทีมงานจะติดต่อกลับภายใน 1 ชั่วโมง กรุณาให้ ID Line / Telegram เพื่อติดต่อกลับ
     </div>
 
     <div class="order-form">
@@ -552,7 +650,7 @@
         </div>
         <div class="form-group">
           <label><i class="fas fa-sticky-note"></i> หมายเหตุเพิ่มเติม</label>
-          <textarea id="notes" rows="2" placeholder="เช่น สอบถามการติดตั้ง, ต้องการใบกำกับภาษี"></textarea>
+          <textarea id="notes" rows="2" placeholder="เช่น สอบถามการติดตั้ง,หรือให้ช่องทางติดต่อกลับตรงนี้"></textarea>
         </div>
         <button type="submit" class="submit-btn" id="submitOrderBtn">
           <i class="fab fa-telegram"></i> ส่งคำสั่งซื้อไปยัง Telegram
@@ -572,12 +670,12 @@
             <i class="fas fa-phone-alt"></i> โทร 082-273-6628
           </a>
         </div>
-        <small style="display: block; margin-top: 8px;">※ หลังจากส่งคำสั่งซื้อแล้ว ทีมงานจะติดต่อกลับทางโทรศัพท์หรือ LINE ภายใน 1 ชั่วโมง กรุณาแนบ ID Line / Telegram เพื่อติดต่อกลับ</small>
+        <small style="display: block; margin-top: 8px;">※ หลังจากส่งคำสั่งซื้อแล้ว ทีมงานจะติดต่อกลับทางโทรศัพท์หรือ LINE ภายใน 1 ชั่วโมง</small>
       </div>
     </div>
   </div>
 
-  <!-- ข้อมูลการใช้งานตัวอย่างจากภาพ ZoneA -->
+  <!-- ข้อมูลการใช้งานตัวอย่าง -->
   <div style="background: #ffffff; border-radius: 1.5rem; padding: 1.5rem; margin: 1.8rem 0; border: 1px solid #cce0ea;">
     <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; justify-content: space-between;">
       <div>
@@ -613,11 +711,155 @@
 
 <script>
   // ============================================================
-  // 🔐 Telegram Configuration (ใส่ Token และ Chat ID จริง)
+  // 🔐 ตรวจจับและบังคับ redirect ออกจาก In-App Browser ทันที
+  // รองรับ: LINE, Facebook, Instagram, TikTok, Twitter/X,
+  //          Messenger, WeChat, Snapchat, Shopee, Lazada ฯลฯ
+  // ============================================================
+
+  (function () {
+    const ua = navigator.userAgent;
+
+    // --- ตรวจจับ in-app browser ทุกตัว ---
+    const isLineApp       = /Line\//i.test(ua);
+    const isFBApp         = /FBAN|FBAV|FB_IAB|FBIOS|FacebookLite/i.test(ua);
+    const isInstagram     = /Instagram/i.test(ua);
+    const isTikTok        = /musical_ly|TikTok/i.test(ua);
+    const isTwitter       = /TwitterAndroid|Twitter for iPhone/i.test(ua);
+    const isMessenger     = /FB4A|MESSENGER|Messenger/i.test(ua);
+    const isWeChat        = /MicroMessenger/i.test(ua);
+    const isSnapchat      = /Snapchat/i.test(ua);
+    const isShopeeLazada  = /shopee|lazada/i.test(ua);
+    const isOtherInApp    = /GSA|DuckDuckGo|Brave|YaBrowser|UCBrowser|OPR|OPiOS|SamsungBrowser/i.test(ua);
+
+    // Edge ไม่ใช่ Chrome จริง
+    const isEdge          = /Edg\//i.test(ua);
+    // Chrome จริงบน Android
+    const isChromeAndroid = /Chrome\/[\d.]+/.test(ua) && /Android/.test(ua) && !isEdge;
+    // Chrome จริงบน iOS (CriOS)
+    const isChromeiOS     = /CriOS\/[\d.]+/.test(ua);
+    // Chrome จริงบน Desktop
+    const isChromeDesktop = /Chrome\/[\d.]+/.test(ua) && !/Android|iPhone|iPad/.test(ua) && !isEdge;
+
+    const isRealChrome = (isChromeAndroid || isChromeiOS || isChromeDesktop)
+                         && !isLineApp && !isFBApp && !isInstagram && !isTikTok
+                         && !isTwitter && !isMessenger && !isWeChat && !isSnapchat
+                         && !isShopeeLazada && !isOtherInApp;
+
+    const isInAppBrowser  = isLineApp || isFBApp || isInstagram || isTikTok
+                         || isTwitter || isMessenger || isWeChat || isSnapchat
+                         || isShopeeLazada;
+
+    const isAndroid = /Android/i.test(ua);
+    const isIOS     = /iPhone|iPad|iPod/i.test(ua);
+
+    const overlay     = document.getElementById('chromeOverlay');
+    const mainContent = document.getElementById('mainContent');
+
+    // ถ้าเป็น Chrome จริง → แสดงเนื้อหาเลย
+    if (isRealChrome) {
+      if (overlay)     overlay.style.display = 'none';
+      if (mainContent) mainContent.style.display = 'block';
+      return; // ออกจากฟังก์ชัน ไม่ต้องทำอะไรอีก
+    }
+
+    // --- ซ่อนเนื้อหาก่อนรอ redirect ---
+    if (mainContent) mainContent.style.display = 'none';
+    if (overlay)     overlay.style.display = 'flex';
+
+    const currentUrl = encodeURIComponent(window.location.href);
+    const rawUrl     = window.location.href;
+
+    // ============================================================
+    // 🚀 REDIRECT อัตโนมัติ (ไม่ต้องรอ user กด)
+    // ============================================================
+    function redirectToChrome() {
+      if (isAndroid) {
+        // Android: ใช้ intent:// เปิด Chrome โดยตรง
+        const intentUrl = `intent://${rawUrl.replace(/^https?:\/\//, '')}#Intent;scheme=https;package=com.android.chrome;S.browser_fallback_url=${currentUrl};end`;
+        window.location.replace(intentUrl);
+
+        // Fallback: ถ้า intent ไม่สำเร็จใน 1.5 วินาที → แสดงปุ่มแนะนำ
+        setTimeout(showManualGuide, 1500);
+
+      } else if (isIOS) {
+        // iOS: เปิดด้วย googlechrome:// deep link
+        const chromeUrl = rawUrl.replace(/^https?/, 'googlechrome');
+        window.location.replace(chromeUrl);
+
+        // iOS LINE/FB บางครั้งบล็อก deep link → แสดงคำแนะนำใน 1.5 วิ
+        setTimeout(showManualGuide, 1500);
+
+      } else {
+        // Desktop in-app browser → ไม่มี deep link แต่แสดงคำแนะนำ
+        showManualGuide();
+      }
+    }
+
+    // ============================================================
+    // 📋 แสดงคำแนะนำ manual (กรณี deep link ไม่ได้ผล)
+    // ============================================================
+    function showManualGuide() {
+      const modal = document.querySelector('.chrome-modal');
+      if (!modal) return;
+
+      // ตรวจว่าถูก redirect สำเร็จหรือยัง (ถ้าหน้ายังอยู่ = ไม่สำเร็จ)
+      let guideText = '';
+      if (isLineApp) {
+        guideText = isIOS
+          ? '① กดปุ่ม <strong>···</strong> มุมขวาบน<br>② เลือก <strong>"เปิดในเบราว์เซอร์"</strong><br>③ เลือก <strong>Chrome</strong>'
+          : '① กดปุ่ม <strong>⋮</strong> มุมขวาบน<br>② เลือก <strong>"เปิดในเบราว์เซอร์"</strong><br>③ เลือก <strong>Chrome</strong>';
+      } else if (isFBApp || isInstagram || isMessenger) {
+        guideText = isIOS
+          ? '① กดปุ่ม <strong>···</strong> มุมล่างขวา<br>② เลือก <strong>"เปิดใน Safari/Chrome"</strong>'
+          : '① กดปุ่ม <strong>⋮</strong> มุมขวาบน<br>② เลือก <strong>"เปิดใน Chrome"</strong>';
+      } else {
+        guideText = '① คัดลอกลิงก์นี้<br>② เปิด <strong>Google Chrome</strong><br>③ วางลิงก์ในช่อง Address bar';
+      }
+
+      modal.innerHTML = `
+        <i class="fab fa-chrome" style="font-size:4rem; color:#4285f4; margin-bottom:1rem; display:block;"></i>
+        <h2 style="font-size:1.6rem; margin-bottom:0.5rem; color:#1e4663;">กรุณาเปิดด้วย Chrome</h2>
+        <p style="color:#5a6e82; margin: 0.8rem 0; line-height:1.8;">${guideText}</p>
+        <div style="background:#f5f7fa; border-radius:1rem; padding:0.8rem 1rem; margin:1rem 0; word-break:break-all; font-size:0.8rem; color:#333; text-align:left;">
+          <strong>ลิงก์:</strong> ${rawUrl}
+        </div>
+        <button onclick="navigator.clipboard && navigator.clipboard.writeText('${rawUrl}').then(()=>{ this.textContent='✅ คัดลอกแล้ว!'; setTimeout(()=>{ this.textContent='📋 คัดลอกลิงก์'; },2000) })" 
+          class="chrome-btn" style="background:#ff9800; margin-bottom:0.5rem;">
+          📋 คัดลอกลิงก์
+        </button>
+        <br>
+        <a href="${rawUrl}" target="_blank" style="display:inline-block; margin-top:0.8rem; color:#4285f4; font-size:0.9rem;">
+          หรือกดที่นี่เพื่อลองเปิดใน Browser
+        </a>
+      `;
+    }
+
+    // เริ่ม redirect ทันทีสำหรับ in-app browser ที่รู้จัก
+    // สำหรับ browser อื่นที่ไม่ใช่ Chrome จริง → แสดงปุ่มแนะนำ
+    if (isInAppBrowser) {
+      redirectToChrome(); // Auto redirect ทันที
+    } else {
+      // Browser แปลกอื่นๆ (เช่น Edge, Samsung, Opera) → แสดงคำแนะนำ
+      showManualGuide();
+
+      // ปุ่ม fallback (ถ้า modal ยังเป็น original)
+      const openChromeBtn = document.getElementById('openChromeBtn');
+      if (openChromeBtn) openChromeBtn.addEventListener('click', redirectToChrome);
+      const continueBtn = document.getElementById('continueAnywayBtn');
+      if (continueBtn) continueBtn.addEventListener('click', () => {
+        if (overlay)     overlay.style.display = 'none';
+        if (mainContent) mainContent.style.display = 'block';
+      });
+    }
+
+  })();
+
+  // ============================================================
+  // 🔐 Telegram Configuration
   // ============================================================
   const BOT_TOKEN = "8602853728:AAF0ThVtR2k5pasdDi9A8bBC7atNWGDI9g4";
-  const CHAT_ID = "8623749775";
-  
+  const CHAT_ID   = "8623749775";
+
   // ============================================================
 
   function showToast(message, type = 'success') {
@@ -630,11 +872,7 @@
 
   async function sendToTelegram(messageText) {
     const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-    const payload = {
-      chat_id: CHAT_ID,
-      text: messageText,
-      parse_mode: 'HTML'
-    };
+    const payload = { chat_id: CHAT_ID, text: messageText, parse_mode: 'HTML' };
     const response = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -645,31 +883,31 @@
     return result;
   }
 
-  const orderForm = document.getElementById('purchaseForm');
-  const submitBtn = document.getElementById('submitOrderBtn');
+  function initFormHandler() {
+    const orderForm = document.getElementById('purchaseForm');
+    if (!orderForm) return;
+    const submitBtn = document.getElementById('submitOrderBtn');
 
-  orderForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    
-    const product = document.getElementById('productModel').value;
-    const fullname = document.getElementById('fullname').value.trim();
-    const phone = document.getElementById('phone').value.trim();
-    const address = document.getElementById('address').value.trim();
-    const deliveryDate = document.getElementById('deliveryDate').value.trim();
-    const notes = document.getElementById('notes').value.trim();
+    orderForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const product      = document.getElementById('productModel').value;
+      const fullname     = document.getElementById('fullname').value.trim();
+      const phone        = document.getElementById('phone').value.trim();
+      const address      = document.getElementById('address').value.trim();
+      const deliveryDate = document.getElementById('deliveryDate').value.trim();
+      const notes        = document.getElementById('notes').value.trim();
 
-    if (!product || !fullname || !phone || !address) {
-      showToast('กรุณากรอกข้อมูลให้ครบทุกช่องที่มี *', 'error');
-      return;
-    }
+      if (!product || !fullname || !phone || !address) {
+        showToast('กรุณากรอกข้อมูลให้ครบทุกช่องที่มี *', 'error');
+        return;
+      }
 
-    const originalText = submitBtn.innerHTML;
-    submitBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> กำลังส่งข้อมูล...';
-    submitBtn.disabled = true;
+      const originalText = submitBtn.innerHTML;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> กำลังส่งข้อมูล...';
+      submitBtn.disabled = true;
 
-    const currentDateTime = new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' });
-    
-    const orderMessage = `
+      const currentDateTime = new Date().toLocaleString('th-TH', { timeZone: 'Asia/Bangkok' });
+      const orderMessage = `
 🛒 <b>📦 คำสั่งซื้อใหม่จากเว็บไซต์ Watchdog</b>
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 📌 <b>รุ่นสินค้า:</b> ${product}
@@ -681,45 +919,52 @@
 ⏰ <b>เวลาที่สั่ง:</b> ${currentDateTime}
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 💡 สถานะ: รอติดต่อกลับ (โทร/Line)
-    `;
+      `;
 
-    try {
-      await sendToTelegram(orderMessage);
-      showToast('✅ ส่งคำสั่งซื้อสำเร็จ! ทีมงานจะติดต่อกลับทางโทรศัพท์หรือ LINE ภายใน 1 ชั่วโมง', 'success');
-      orderForm.reset();
-      document.getElementById('productModel').value = '';
-    } catch (error) {
-      console.error(error);
-      showToast(`❌ ส่งไม่สำเร็จ: ${error.message} กรุณาตรวจสอบ Token/Chat ID`, 'error');
-    } finally {
-      submitBtn.innerHTML = originalText;
-      submitBtn.disabled = false;
-    }
-  });
-
-  // คลิกเลือกสินค้าจากการ์ด
-  document.querySelectorAll('.model-card').forEach(card => {
-    card.addEventListener('click', () => {
-      const model = card.getAttribute('data-model');
-      const selectEl = document.getElementById('productModel');
-      if (model === 'Watchdog T1') selectEl.value = 'Watchdog T1 (WiFi) - 2,990 บาท';
-      else if (model === 'Watchdog T2') selectEl.value = 'Watchdog T2 (WiFi/4G) - 4,990 บาท';
-      else if (model === 'Watchdog T4G') selectEl.value = 'Watchdog T4G (WiFi/4G LTE) - 6,990 บาท';
-      document.getElementById('orderForm').scrollIntoView({ behavior: 'smooth', block: 'center' });
-      showToast(`✓ เลือก ${model} แล้ว กรอกข้อมูลเพื่อสั่งซื้อ`, 'info');
+      try {
+        await sendToTelegram(orderMessage);
+        showToast('✅ ส่งคำสั่งซื้อสำเร็จ! ทีมงานจะติดต่อกลับทางโทรศัพท์หรือ LINE ภายใน 1 ชั่วโมง', 'success');
+        orderForm.reset();
+        document.getElementById('productModel').value = '';
+      } catch (error) {
+        console.error(error);
+        showToast(`❌ ส่งไม่สำเร็จ: ${error.message}`, 'error');
+      } finally {
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+      }
     });
-  });
+  }
 
-  // ทดสอบ Bot
+  function initCardSelection() {
+    document.querySelectorAll('.model-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const model    = card.getAttribute('data-model');
+        const selectEl = document.getElementById('productModel');
+        if (selectEl) {
+          if (model === 'Watchdog T1')  selectEl.value = 'Watchdog T1 (WiFi) - 2,990 บาท';
+          if (model === 'Watchdog T2')  selectEl.value = 'Watchdog T2 (WiFi/4G) - 4,990 บาท';
+          if (model === 'Watchdog T4G') selectEl.value = 'Watchdog T4G (WiFi/4G LTE) - 6,990 บาท';
+          document.getElementById('orderForm').scrollIntoView({ behavior: 'smooth', block: 'center' });
+          showToast(`✓ เลือก ${model} แล้ว กรอกข้อมูลเพื่อสั่งซื้อ`, 'info');
+        }
+      });
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => { initFormHandler(); initCardSelection(); });
+  } else {
+    initFormHandler();
+    initCardSelection();
+  }
+
   async function testBot() {
     try {
-      const res = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/getMe`);
+      const res  = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/getMe`);
       const data = await res.json();
       if (data.ok) console.log('✅ Bot Online:', data.result.username);
-      else console.warn('⚠️ Bot Token อาจผิดพลาด');
     } catch(e) { console.warn('ไม่สามารถเชื่อมต่อ Telegram API'); }
   }
   testBot();
 </script>
-</body>
-</html>
