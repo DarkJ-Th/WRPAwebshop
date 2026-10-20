@@ -1,6 +1,6 @@
 {
   "product": "Watchdog",
-  "version": null,
+  "version": "1.0.1",
   "firmware": {
     "name": "watchdog_4SN.ino.bin",
     "url": "https://raw.githubusercontent.com/darkj-th/WRPAwebshop/main/firmware/watchdog/watchdog_4SN.ino.bin",
