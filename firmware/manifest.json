@@ -1,12 +1,4 @@
 {
   "product": "Watchdog",
-  "version": "1.0.2",
-  "firmware": {
-    "name": "watchdog_4SN.ino.bin",
-    "url": "https://raw.githubusercontent.com/darkj-th/WRPAwebshop/main/firmware/watchdog/watchdog_4SN.ino.bin",
-    "size": 1195472,
-    "sha256": "9483dd0e629c8fc4d34048256a490d99a2f36a81983f8d553f573c2565254dd6",
-    "path": "firmware/watchdog/watchdog_4SN.ino.bin",
-    "ts": 1792540807463
-  }
+  "version": "1.0.2"
 }
